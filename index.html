@@ -1,5 +1,6 @@
 <!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><title>潔諾拉麵食堂</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#1a0d08"><link rel="apple-touch-icon" href="icon-192.png">
 <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Chiron+GoRound+TC:wght@900&display=swap" rel="stylesheet">
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
@@ -43,7 +44,11 @@ html.lp .btn{padding:.6em 1em;font-size:1.15em;min-height:2.6em}
 html.lp .btn.tb{font-size:.9em;padding:.4em .7em;min-height:0}
 html.lp .ov.hudr{position:static!important;width:100%;justify-content:center;gap:.6em;padding:.7em .6em}
 html.lp .ov.hudr>.bx{flex:1 1 100%;display:flex;gap:.6em;align-items:center}
-html.lp .ov.hudr>.btn{flex:1 1 40%}
+html.lp .ov.hudr>.btn{flex:1 1 20%}
+html.lp .ov.hudr>.vtog{flex:none;width:6.2em;min-width:0;min-height:0;padding:.5em .2em;font-size:1em}
+.brk{display:none}.st2.ph{display:none}html.ll.sm .st2.ph{display:block;visibility:hidden;pointer-events:none;border-color:transparent;box-shadow:none}html.ll.sm .crow{flex-wrap:wrap;justify-content:center}html.ll.sm .crow .st2{flex:0 0 100%;min-height:0;padding-top:.1em;padding-bottom:.1em}html.lp .ov.hudr>.brk{display:block;flex:0 0 100%;height:0;margin:-.3em 0}.lvbx{text-align:center}.lvbx .bar{margin:.2em auto 0}
+html.lp .ov.hudr>.bx.lvbx{justify-content:center}
+.it:disabled{cursor:default;border-color:#5a3a24}
 html.lp .ov.hudr>.tsave,html.lp .ov.hudr>.tleave{position:absolute;top:.6em;width:6.2em;min-width:0;min-height:0;flex:none;padding:.5em .2em;font-size:1em}
 html.lp .ov.hudr>.tleave{right:.6em}html.lp .ov.hudr>.tsave{right:7.2em}
 html.lp .ov.bn{top:7.7em!important;left:0!important;right:0!important}
@@ -68,7 +73,10 @@ html:not(.sm) .vtog{display:none}
 html.ll .wrap{--sw:min(100vh,calc(100vw*1.6),1120px);position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) rotate(90deg)}
 @supports (height:100dvh){html.ll .wrap{--sw:min(100dvh,calc(100vw*1.6),1120px)}}
 }
-</style><script>(function(){var d=document.documentElement,sm=false;try{sm=Math.min(screen.width,screen.height)<700||matchMedia('(pointer:coarse)').matches}catch(e){}var v=sm?'p':'l';try{var s=localStorage.getItem('jnr_view');if(s==='p'||s==='l')v=s}catch(e){}d.className=(sm?'sm ':'')+(v==='p'?'lp':'ll')})()</script><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#1a0d08"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="潔諾拉麵食堂"><link rel="apple-touch-icon" href="icon-192.png"></head><body><div id="root"></div>
+/* 平板/手機橫放:不限制最大寬度,依螢幕等比放到最大 */
+@media (orientation:landscape){html.ll.sm .wrap{--sw:min(100vw,calc(100vh*1.6));font-size:clamp(10px,calc(var(--sw)*.0144),44px)}}
+@supports (height:100dvh){@media (orientation:landscape){html.ll.sm .wrap{--sw:min(100vw,calc(100dvh*1.6))}}}
+</style><script>(function(){var d=document.documentElement,sm=false;try{sm=Math.min(screen.width,screen.height)<700||matchMedia('(pointer:coarse)').matches}catch(e){}var v=sm?'p':'l';try{var s=localStorage.getItem('jnr_view');if(s==='p'||s==='l')v=s}catch(e){}d.className=(sm?'sm ':'')+(v==='p'?'lp':'ll')})()</script></head><body><div id="root"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
 <script>
@@ -208,21 +216,21 @@ function drawCU(st){const g=cg,t=st.t;g.clearRect(0,0,CW,CH);g.drawImage(BG[0],0
 const CT=118,DY=12,ST=134,WY=188;
 const ITEMS=[
 {id:'sc',n:'葱花',k:'葱',p:30,c:'#5fb04a',lv:1},{id:'nr',n:'海苔',k:'海',p:40,c:'#1f3a2a',lv:1},
-{id:'eg',n:'溏心蛋',k:'卵',p:60,c:'#f5c04a',lv:1},{id:'cs',n:'叉烧',k:'烧',p:90,c:'#c0705a',lv:2},
-{id:'mm',n:'笋干',k:'笋',p:50,c:'#d9a85a',lv:2},{id:'nt',n:'花花',k:'涡',p:60,c:'#f3d0dc',lv:3},
-{id:'co',n:'玉米',k:'米',p:45,c:'#f2d23a',lv:4},{id:'ab',n:'炙烧五花',k:'肉',p:140,c:'#a8553a',lv:5},
+{id:'eg',n:'溏心蛋',k:'卵',p:60,c:'#f5c04a',lv:1},{id:'cs',n:'叉燒',k:'燒',p:90,c:'#c0705a',lv:2},
+{id:'mm',n:'筍乾',k:'筍',p:50,c:'#d9a85a',lv:2},{id:'nt',n:'花花',k:'渦',p:60,c:'#f3d0dc',lv:3},
+{id:'co',n:'玉米',k:'米',p:45,c:'#f2d23a',lv:4},{id:'ab',n:'炙燒五花',k:'肉',p:140,c:'#a8553a',lv:5},
 {id:'bs',n:'豆芽',k:'芽',p:55,c:'#f4f0d0',lv:6},{id:'ch',n:'辣味噌',k:'辣',p:100,c:'#d8381c',lv:7}];
 const IT={};ITEMS.forEach(i=>IT[i.id]=i);
 const UPS=[
-{id:'warm',n:'保温锅',d:'客人更有耐心 +25%',cost:150,lv:1},
+{id:'warm',n:'保溫鍋',d:'客人更有耐心 +25%',cost:150,lv:1},
 {id:'seat1',n:'追加座位',d:'座位 +1',cost:200,lv:2},
-{id:'lamp',n:'招牌灯笼',d:'人气增长 ×1.5',cost:300,lv:2},
+{id:'lamp',n:'招牌燈籠',d:'人氣增長 ×1.5',cost:300,lv:2},
 {id:'seat2',n:'再加座位',d:'座位 +1',cost:500,lv:3,req:'seat1'},
-{id:'broth',n:'特制高汤',d:'售价 ×1.2',cost:450,lv:3},
-{id:'ac',n:'冷气空调',d:'客人耐心 +20%',cost:400,lv:3},
+{id:'broth',n:'特製高湯',d:'售價 ×1.2',cost:450,lv:3},
+{id:'ac',n:'冷氣空調',d:'客人耐心 +20%',cost:400,lv:3},
 {id:'fast',n:'快速餐具',d:'客人吃得更快',cost:600,lv:4},
-{id:'sign',n:'霓虹招牌',d:'客人来得更频繁',cost:700,lv:5},
-{id:'tip',n:'小费罐',d:'收入 ×1.15',cost:900,lv:6}];
+{id:'sign',n:'霓虹招牌',d:'客人來得更頻繁',cost:700,lv:5},
+{id:'tip',n:'小費罐',d:'收入 ×1.15',cost:900,lv:6}];
 const LV=[0,6,16,32,56,90,140,210],SO=[1,2,3,4,0,5],SX=[45,100,155,210,265,305],SY=149;
 const HAIR=['#3b2a22','#6b4a3a','#1e2a55','#a06a3a','#2b2b2b'],SHIRT=['#2b3a5a','#c0302c','#2f7a4a','#e0b030','#7a4a9a'];
 const mk=()=>({scene:'street',t:0,money:0,dm:0,sales:0,fame:0,rep:3,served:0,ups:{},cust:[],floats:[],spawnT:1,nid:1,serving:null,bowl:[],
@@ -230,41 +238,44 @@ cam:{z:1,x:160,y:100},camT:{z:1,x:160,y:100},demo:null,res:null,banner:null,lvSh
 rain:Array.from({length:110},()=>({x:rnd()*W,y:rnd()*H,s:90+rnd()*80}))});
 let G=mk();
 const score=()=>G.sales/50+G.fame;
-const lvl=()=>{let l=1;LV.forEach((v,i)=>{if(score()>=v)l=i+1});return l};
-const prog=()=>{const l=lvl();return l>=LV.length?1:(score()-LV[l-1])/(LV[l]-LV[l-1])};
+/* 等級無上限:Lv8 之後每一級所需分數逐級增加 */
+const thr=l=>{if(l<=LV.length)return LV[l-1];let v=LV[LV.length-1];for(let k=LV.length+1;k<=l;k++)v+=80+10*(k-LV.length-1);return v};
+const lvl=()=>{let l=1;const sc=score();while(sc>=thr(l+1))l++;return l};
+const prog=()=>{const l=lvl();return Math.max(0,Math.min(1,(score()-thr(l))/(thr(l+1)-thr(l))))};
 const seatN=()=>4+(G.ups.seat1?1:0)+(G.ups.seat2?1:0);
 const unl=()=>ITEMS.filter(i=>i.lv<=lvl());
 const setScene=s=>{G.scene=s;G.fade=1};
 const zoomOut=()=>{G.camT={z:1,x:160,y:100}};
 function openServe(c){if(c.state!=='wait')return;G.serving=c;G.bowl=[];G.bowlT=[];G.cook=null;G.noodle=null;G.zs=.2+rnd()*.54;G.camT={z:2.4,x:187,y:CT-DY-18}}
-function pick(id){if(G.serving&&G.bowl.length<5){G.bowl.push(id);G.bowlT.push(G.t)}}
+function pick(id){if(G.serving&&G.noodle&&G.bowl.length<5){G.bowl.push(id);G.bowlT.push(G.t)}}
 function unpick(i){G.bowl.splice(i,1);G.bowlT.splice(i,1)}
 function cancel(){G.serving=null;G.bowl=[];G.cook=null;G.noodle=null;zoomOut()}
 function startCook(){if(G.serving&&!G.cook&&!G.noodle)G.cook={t:0}}
-function takeNoodle(){if(!G.cook)return;const p=G.cook.t/4,z=G.zs;G.noodle=p>=z&&p<=z+.22?'perfect':p>=z-.12&&p<=z+.38?'ok':'bad';G.noodleT=G.t;G.cook=null}
+function takeNoodle(){if(!G.cook)return;const p=G.cook.t/4,z=G.zs;G.noodle=p>=z&&p<=z+.22?'perfect':p>=z-.12&&p<=z+.38?'ok':'bad';G.acc=Math.max(0,1-Math.abs(p-(z+.11))/.4);G.stopP=Math.min(1,p);G.noodleT=G.t;G.cook=null}
 function buy(id){const u=UPS.find(x=>x.id===id);if(G.ups[id]||G.money<u.cost||lvl()<u.lv||(u.req&&!G.ups[u.req]))return;G.money-=u.cost;G.ups[id]=1}
-function checkLv(){const l=lvl();if(l>G.lvShown){G.lvShown=l;const nw=ITEMS.filter(i=>i.lv===l).map(i=>i.n).join('、');G.banner={t:0,tx:'店铺升级 Lv'+l+'!'+(nw?' 新菜单:'+nw:'')}}}
+function checkLv(){const l=lvl();if(l>G.lvShown){G.lvShown=l;const nw=ITEMS.filter(i=>i.lv===l).map(i=>i.n).join('、');G.banner={t:0,tx:'店舖升級 Lv'+l+'!'+(nw?' 新菜單:'+nw:'')}}}
 function serve(){const c=G.serving;if(!c||!G.noodle)return;const need=[...c.order];let m=0,ex=0,val=0;
 G.bowl.forEach(b=>{const i=need.indexOf(b);if(i>=0){need.splice(i,1);m++;val+=IT[b].p}else ex++});
 const r=Math.max(0,c.pat/c.max),q=G.noodle,full=m===c.order.length&&ex===0;
-const tier=(m===0||q==='bad')?0:(full&&r>.5)?2:1;
-const sat=[35,70,95][tier];
+const exact=full&&G.bowl.length===c.order.length&&G.bowl.every((b,i)=>b===c.order[i]);
+const tier=(m===0||q==='bad')?0:(exact&&(G.acc||0)>=.9)?3:(full&&r>.5)?2:1;
+const sat=[35,70,95,100][tier];
 const rev=Math.round(val*(G.ups.broth?1.2:1)*(G.ups.tip?1.15:1)*(1+sat/200));
 G.money+=rev;G.sales+=rev;G.fame+=sat/25*(G.ups.lamp?1.5:1);G.rep=Math.max(1,Math.min(5,G.rep*.85+(1+sat/25)*.15));G.served++;
 c.state='eat';c.eatT=G.ups.fast?2.2:3.5;
-G.res={key:G.nid++,sat,rev,t:0,note:sat>=90?'完美':sat>=60?'普通':'差強人意'};
-G.floats.push({x:c.x-12,y:c.y-36,t:0,tx:'+¥'+rev,c:'#ffd24a'},{x:c.x-12,y:c.y-46,t:0,tx:G.res.note,c:sat>=90?'#8fe068':sat>=60?'#ffffff':'#ff9a7a'});
+G.res={key:G.nid++,sat,rev,t:0,note:sat>=100?'非常完美':sat>=90?'完美':sat>=60?'普通':'差強人意'};
+G.floats.push({x:c.x-12,y:c.y-36,t:0,tx:'+¥'+rev,c:'#ffd24a'},{x:c.x-12,y:c.y-46,t:0,tx:G.res.note,c:sat>=100?'#ffd24a':sat>=90?'#8fe068':sat>=60?'#ffffff':'#ff9a7a'});
 G.serving=null;G.bowl=[];G.noodle=null;G.cook=null;zoomOut();checkLv()}
 function leave(c){c.state='leave';c.wp=[[c.x,WY],[345,WY]]}
 function spawn(){const s=SO.slice(0,seatN()).find(i=>!G.cust.some(c=>c.seat===i&&c.state!=='leave'));if(s==null)return;
-const u=unl(),n=1+(rnd()<.5?1:0)+(lvl()>=3&&rnd()<.4?1:0),max=30*(G.ups.warm?1.25:1)*(G.ups.ac?1.2:1)*(1+(G.rep-3)*.05);
+const u=unl(),L=lvl(),n=L>12?5:L>8?4:1+(rnd()<.5?1:0)+(L>=3&&rnd()<.4?1:0),max=30*(G.ups.warm?1.25:1)*(G.ups.ac?1.2:1)*(1+(G.rep-3)*.05);
 G.cust.push({id:G.nid++,x:-12,y:WY,seat:s,state:'walk',wp:[[SX[s],WY],[SX[s],SY]],t:rnd()*3,hair:HAIR[rnd()*5|0],shirt:SHIRT[rnd()*5|0],
-order:Array.from({length:n},()=>u[rnd()*u.length|0].id),pat:max,max})}
+order:(n>=4?u.map(i=>i.id).sort(()=>rnd()-.5).slice(0,n):Array.from({length:n},()=>u[rnd()*u.length|0].id)),pat:max,max})}
 function bot(dt){const d=G.demo;d.bt=(d.bt||0)-dt;
 if(d.t>10&&!G.ups.warm&&G.money>=150)buy('warm');
 if(d.bt>0)return;
 if(!G.serving){const c=G.cust.find(c=>c.state==='wait');if(c){openServe(c);d.bt=1}}
-else{const c=G.serving;if(!G.noodle){if(!G.cook){startCook();d.bt=.2}else if(G.cook.t>=(G.zs+.06)*4){takeNoodle();d.bt=.4}else d.bt=.05}else if(G.bowl.length<c.order.length){const need=[...c.order];G.bowl.forEach(b=>need.splice(need.indexOf(b),1));pick(need[0]);d.bt=.5}else{serve();d.bt=.8}}}
+else{const c=G.serving;if(!G.noodle){if(!G.cook){startCook();d.bt=.2}else if(G.cook.t>=(G.zs+.11)*4){takeNoodle();d.bt=.4}else d.bt=.05}else if(G.bowl.length<c.order.length){const need=[...c.order];G.bowl.forEach(b=>need.splice(need.indexOf(b),1));pick(need[0]);d.bt=.5}else{serve();d.bt=.8}}}
 function update(dt){
 G.t+=dt;G.cu+=((G.serving?1:0)-G.cu)*Math.min(1,dt*8);G.cdip+=((G.cook?1:0)-G.cdip)*Math.min(1,dt*6);
 if(G.serving){G.vN=G.noodle;G.vB=G.bowl.slice();G.vT=G.bowlT.slice();G.vCk=G.cook?G.cook.t:0}
@@ -370,7 +381,7 @@ ctx.restore();
 if(G.scene==='shop'&&G.cu>.01){ctx.globalAlpha=Math.min(1,G.cu);ctx.imageSmoothingEnabled=false;drawCU({t:G.t,noodle:G.vN||null,cookT:G.vCk||0,cdip:G.cdip,bowl:G.vB||[],bowlT:G.vT||[],nAge:G.t-G.noodleT});ctx.drawImage(CU,0,0,W,H);ctx.globalAlpha=1}
 if(G.fade>0){ctx.globalAlpha=G.fade;R(0,0,W,H,'#000');ctx.globalAlpha=1}}
 function snap(){const s=G.serving;return{scene:G.scene,money:Math.round(G.dm),rep:G.rep,fame:Math.floor(G.fame),lv:lvl(),prog:prog(),order:s?s.order.slice():null,pf:s?s.pat/s.max:0,
-bowl:G.bowl.slice(),ups:{...G.ups},demo:G.demo?Math.max(0,30-Math.floor(G.demo.t)):null,res:G.res&&G.res.t<2.4?G.res:null,banner:G.banner&&G.banner.t<3.5?G.banner.tx:null,wait:G.cust.some(c=>c.state==='wait'),zs:G.zs,cook:G.cook?G.cook.t/4:null,noodle:G.noodle}}
+bowl:G.bowl.slice(),ups:{...G.ups},demo:G.demo?Math.max(0,30-Math.floor(G.demo.t)):null,res:G.res&&G.res.t<2.4?G.res:null,banner:G.banner&&G.banner.t<3.5?G.banner.tx:null,wait:G.cust.some(c=>c.state==='wait'),zs:G.zs,cook:G.cook?G.cook.t/4:null,noodle:G.noodle,sp:G.stopP||0,acc:G.acc||0}}
 const TUT=[['歡迎來到潔諾拉麵食堂','你是拉麵店的店員!接待客人、煮出好吃的拉麵,賺錢讓小店升級。'],['① 接待客人','客人坐下後,頭上會出現點單泡泡。點一下等待中的客人,就能開始做他的拉麵。客人的耐心條見底會生氣離開。'],['② 煮麵','按「下鍋」開始煮麵。當進度條走進綠色框框時,立刻按「起鍋」。煮得越準,麵越好吃。'],['③ 放配料','選擇和點單一樣的配料放進碗裡。放錯或多放會扣分。'],['④ 上菜','按「上菜」把拉麵端給客人。賺到的錢會顯示在金錢欄旁和客人頭上。'],['⑤ 店鋪成長','口碑和人氣會讓店鋪升級,解鎖新配料,也可以用賺來的錢購買設備。'],['⑥ 存檔','按畫面上方的「保存紀錄」就能存檔。存檔是放在瀏覽器裡,換瀏覽器或清除網站資料後就會不見。如果用無痕視窗開,關掉視窗也會消失!準備好就開店吧!']];
 const SKEY='jnr_saves_v1';let MEM=[null,null,null];
 const getSaves=()=>{try{const v=JSON.parse(localStorage.getItem(SKEY));if(Array.isArray(v))return[0,1,2].map(i=>v[i]||null)}catch(e){}return MEM.slice()};
@@ -404,19 +415,20 @@ h('img',{src:COVER,style:{position:'absolute',inset:0,width:'100%',height:'100%'
 h('div',{className:'tcol',style:{position:'absolute',left:'5%',top:0,bottom:0,display:'flex',flexDirection:'column',alignItems:'flex-start',justifyContent:'center',gap:'1.2em',pointerEvents:'none'}},
 h('div',{className:'tt2',style:{marginTop:0,lineHeight:1.15}},...[...'潔諾'].map((ch,i)=>h('span',{key:'a'+i,className:'ch',style:{animationDelay:(i*.15)+'s'}},ch)),h('br'),...[...'拉麵食堂'].map((ch,i)=>h('span',{key:'b'+i,className:'ch',style:{animationDelay:(.3+i*.15)+'s'}},ch))),
 h('div',{className:'tbtn',style:{display:'flex',flexDirection:'column',gap:'.8em',alignItems:'flex-start'}},h('button',{className:'btn big',onClick:()=>{if(view==='l'&&document.documentElement.classList.contains('sm'))goFull();setPz(false);setTut(0)}},'開始遊戲'),saves.some(Boolean)&&h('button',{className:'btn big',onClick:()=>{setSaves(getSaves());setSv('load')}},'繼續遊戲'),h('button',{className:'btn g',onClick:()=>{G=mk();G.demo={t:0};G.scene='shop'}},'▶ 演示模式'),h('button',{className:'btn g vtog',onClick:tgView},view==='p'?'切換橫式':'切換直式')))),
-s.scene==='shop'&&!s.order&&h('div',{className:'ov',style:{top:'2%',left:'1.5%'}},h('div',{className:'bx'},h('div',{style:{color:'#ffd24a',fontSize:'1.5em'}},'¥ '+s.money,s.res&&h('span',{key:s.res.key,className:'pop',style:{display:'inline-block',marginLeft:'.5em',color:'#8fe068',fontSize:'.7em'}},'+¥'+s.res.rev)),h('div',{style:{color:'#ff7a9a'}},'口碑 '+'★'.repeat(star)+'☆'.repeat(5-star)),h('div',{style:{color:'#ff9ab0'}},'人气 ♥ '+s.fame))),
+s.scene==='shop'&&!s.order&&h('div',{className:'ov',style:{top:'2%',left:'1.5%'}},h('div',{className:'bx'},h('div',{style:{color:'#ffd24a',fontSize:'1.5em'}},'¥ '+s.money,s.res&&h('span',{key:s.res.key,className:'pop',style:{display:'inline-block',marginLeft:'.5em',color:'#8fe068',fontSize:'.7em'}},'+¥'+s.res.rev)),h('div',{style:{color:'#ff7a9a'}},'口碑 '+'★'.repeat(star)+'☆'.repeat(5-star)),h('div',{style:{color:'#ff9ab0'}},'人氣 ♥ '+s.fame))),
 s.scene==='shop'&&h('div',{className:'ov hudr',style:{top:'2%',right:'1.5%',alignItems:'flex-start'}},
-h('div',{className:'bx'},'店铺 Lv'+s.lv,h('div',{className:'bar'},h('i',{style:{width:Math.min(100,s.prog*100)+'%'}}))),
-h('button',{className:'btn',onClick:()=>setPz(true)},'暂停'),h('button',{className:'btn g vtog',onClick:tgView},view==='p'?'切換橫式':'切換直式'),!s.demo&&h('button',{className:'btn g',onClick:()=>setOpen(true)},'店铺·设备'),!s.demo&&!s.order&&h('button',{className:'btn g tsave',onClick:()=>{setSaves(getSaves());setSv('save')}},'保存紀錄'),
-!s.demo&&!s.order&&h('button',{className:'btn tleave',onClick:()=>{if(G.serving)cancel();setScene('street')}},'离开')),
-s.demo!=null&&h('div',{className:'ov hint dm',style:s.order?{top:'1%',left:0,right:0,justifyContent:'center',zIndex:5}:{bottom:'3%',left:0,right:0,justifyContent:'center'}},h('div',{className:'bx blink'},'DEMO 自动演示中 · '+s.demo+'s'),h('button',{className:'btn',onClick:()=>{G=mk()}},'退出')),
-s.scene==='shop'&&!s.order&&!s.demo&&h('div',{className:'ov hint',style:{bottom:'3%',left:0,right:0,justifyContent:'center'}},h('div',{className:'bx blink'},'点击等待中的客人开始点餐')),
+h('div',{className:'bx lvbx'},'店舖等級 Lv'+s.lv,h('div',{className:'bar'},h('i',{style:{width:Math.min(100,s.prog*100)+'%'}}))),
+h('button',{className:'btn',onClick:()=>setPz(true)},'暫停'),!s.demo&&h('button',{className:'btn g',onClick:()=>setOpen(true)},'店舖設備'),h('div',{className:'brk'}),h('button',{className:'btn g vtog',onClick:tgView},view==='p'?'切換橫式':'切換直式'),!s.demo&&!s.order&&h('button',{className:'btn g tsave',onClick:()=>{setSaves(getSaves());setSv('save')}},'保存紀錄'),
+!s.demo&&!s.order&&h('button',{className:'btn tleave',onClick:()=>{if(G.serving)cancel();setScene('street')}},'離開')),
+s.demo!=null&&h('div',{className:'ov hint dm',style:s.order?{top:'1%',left:0,right:0,justifyContent:'center',zIndex:5}:{bottom:'3%',left:0,right:0,justifyContent:'center'}},h('div',{className:'bx blink'},'DEMO 自動演示中 · '+s.demo+'s'),h('button',{className:'btn',onClick:()=>{G=mk()}},'退出')),
+s.scene==='shop'&&!s.order&&!s.demo&&h('div',{className:'ov hint',style:{bottom:'3%',left:0,right:0,justifyContent:'center'}},h('div',{className:'bx blink'},'點擊等待中的客人開始點餐')),
 s.order&&h('div',{className:'ov bx sv',style:{bottom:'2%',left:'50%',transform:'translateX(-50%)',flexDirection:'column',alignItems:'center',width:'78%'}},
-h('div',{style:{display:'flex',gap:'.6em',alignItems:'center'}},'点单:',s.order.map((o,i)=>h(Ico,{key:i,id:o})),h('div',{className:'bar'},h('i',{style:{width:Math.max(0,s.pf*100)+'%',background:s.pf>.4?'#5fd35f':'#e8452a'}}))),
-!s.noodle?h('div',{style:{display:'flex',gap:'.6em',alignItems:'center'}},'① 煮面:',h('div',{className:'bar',style:{width:'16em',position:'relative'}},h('i',{style:{width:Math.min(100,(s.cook||0)*100)+'%',background:'#e8c070'}}),h('b',{style:{position:'absolute',left:(s.zs*100)+'%',top:0,bottom:0,width:'22%',border:'2px solid #5fd35f',pointerEvents:'none'}})),s.cook==null?h('button',{className:'btn',onClick:startCook},'下鍋'):h('button',{className:'btn g',onClick:takeNoodle},'起锅!')):h('div',{style:{display:'flex',gap:'.6em',alignItems:'center'}},'面:'+(s.noodle==='perfect'?'完美弹牙!':s.noodle==='ok'?'还可以':'煮坏了…')+'  ② 放配料:',h('button',{className:'btn',style:{visibility:'hidden'},tabIndex:-1,'aria-hidden':true},'下鍋')),
-h('div',{className:'ings',style:{display:'flex',gap:'.4em',flexWrap:'nowrap',justifyContent:'center',opacity:s.noodle?1:.35,pointerEvents:s.noodle?'auto':'none'}},un.map(id=>h('button',{key:id,className:'it',onClick:()=>pick(id)},h(Ico,{id}),IT[id].n))),
-h('div',{style:{display:'flex',gap:'.4em',alignItems:'center'}},'碗:',[0,1,2,3,4].map(i=>h('div',{key:i,className:'slot'},s.bowl[i]&&h(Ico,{id:s.bowl[i]}))),
-h('button',{className:'btn g',disabled:!s.noodle||!s.bowl.length,onClick:serve},'上菜'),h('button',{className:'btn',onClick:cancel},'返回'))),
+h('div',{style:{display:'flex',gap:'.6em',alignItems:'center'}},'點單:',s.order.map((o,i)=>h(Ico,{key:i,id:o})),h('div',{className:'bar'},h('i',{style:{width:Math.max(0,s.pf*100)+'%',background:s.pf>.4?'#5fd35f':'#e8452a'}}))),
+h('div',{className:'crow',style:{display:'flex',gap:'.6em',alignItems:'center'}},!s.noodle&&h('span',{style:{color:'#ffd24a'}},'① 煮麵:'),s.noodle?h('div',{style:{width:'16em',textAlign:'center',color:s.noodle==='bad'?'#ff9a7a':'#8fe068'}},(s.noodle==='perfect'?'完美彈牙!':s.noodle==='ok'?'還可以':'煮壞了…')):h('div',{className:'bar',style:{width:'16em',position:'relative'}},h('i',{style:{width:Math.min(100,(s.cook||0)*100)+'%',background:'#e8c070'}}),h('b',{style:{position:'absolute',left:(s.zs*100)+'%',top:0,bottom:0,width:'22%',border:'2px solid #5fd35f',pointerEvents:'none'}})),
+s.noodle?h('span',{className:'btn st2',style:{background:'transparent',borderColor:'transparent',boxShadow:'none',color:'#ffd24a',pointerEvents:'none',textAlign:'center',minWidth:'5.5em'}},'② 放配料'):s.cook==null?h('button',{className:'btn',onClick:startCook},'下鍋'):h('button',{className:'btn g',onClick:takeNoodle},'起鍋!'),!s.noodle&&h('span',{className:'btn st2 ph','aria-hidden':true},'② 放配料')),
+h('div',{className:'ings',style:{display:'flex',gap:'.4em',flexWrap:'nowrap',justifyContent:'center',opacity:s.noodle?1:.35,pointerEvents:s.noodle?'auto':'none'}},un.map(id=>h('button',{key:id,className:'it',disabled:!s.noodle,onClick:()=>pick(id)},h(Ico,{id}),IT[id].n))),
+h('div',{style:{display:'flex',gap:'.4em',alignItems:'center'}},'碗:',[0,1,2,3,4].map(i=>h('div',{key:i,className:'slot',title:s.bowl[i]?'點一下拿起來':'',style:s.bowl[i]?{cursor:'pointer',borderStyle:'solid',borderColor:'#ffd24a'}:null,onClick:()=>{if(s.bowl[i])unpick(i)}},s.bowl[i]&&h(Ico,{id:s.bowl[i]}))),
+h('button',{className:'btn g',disabled:!s.noodle||!s.bowl.length,onClick:serve},'上菜'))),
 s.banner&&h('div',{className:'ov bn',style:{top:'22%',left:0,right:0,justifyContent:'center'}},h('div',{className:'bx pop',style:{fontSize:'1.6em',color:'#ffd24a'}},s.banner)),
 tut!=null&&h('div',{className:'ov',style:{inset:0,background:'#000c',alignItems:'center',justifyContent:'center',zIndex:20}},h('div',{className:'bx',style:{width:'62%',borderColor:'#ffd24a',display:'flex',flexDirection:'column',gap:'.8em',padding:'1em 1.4em'}},
 h('div',{style:{fontSize:'1.6em',color:'#ffd24a'}},TUT[tut][0]),h('div',{style:{lineHeight:1.7,minHeight:'5.5em'}},TUT[tut][1]),
@@ -430,11 +442,11 @@ sv==='save'?h('button',{className:'btn g',onClick:()=>{setSaves(saveGame(i))}},d
 h('div',{style:{textAlign:'right'}},h('button',{className:'btn',onClick:()=>setSv(null)},'關閉')))),
 pz&&h('div',{className:'ov',style:{inset:0,background:'#000b',alignItems:'center',justifyContent:'center',flexDirection:'column'}},h('div',{className:'res'},'暫停中'),h('button',{className:'btn big',onClick:()=>setPz(false)},'繼續')),
 open&&h('div',{className:'ov',style:{inset:0,background:'#000a',alignItems:'center',justifyContent:'center'}},h('div',{className:'bx',style:{width:'70%',maxHeight:'92%',overflow:'auto',borderColor:'#d93a35'}},
-h('div',{style:{fontSize:'1.4em',marginBottom:'.4em'}},'菜单 (Lv'+s.lv+')'),
-h('div',{style:{display:'flex',gap:'.4em',flexWrap:'wrap'}},ITEMS.map(i=>h('div',{key:i.id,style:{opacity:i.lv<=s.lv?1:.35,textAlign:'center',border:'3px solid #8a4f24',background:'#3a1c10',padding:'.3em .5em'}},h(Ico,{id:i.id}),h('div',null,i.lv<=s.lv?i.n+' ¥'+i.p:'Lv'+i.lv+'解锁')))),
-h('div',{style:{fontSize:'1.4em',margin:'.6em 0 .3em'}},'设备'),
+h('div',{style:{fontSize:'1.4em',marginBottom:'.4em'}},'菜單 (Lv'+s.lv+')'),
+h('div',{style:{display:'flex',gap:'.4em',flexWrap:'wrap'}},ITEMS.map(i=>h('div',{key:i.id,style:{opacity:i.lv<=s.lv?1:.35,textAlign:'center',border:'3px solid #8a4f24',background:'#3a1c10',padding:'.3em .5em'}},h(Ico,{id:i.id}),h('div',null,i.lv<=s.lv?i.n+' ¥'+i.p:'Lv'+i.lv+'解鎖')))),
+h('div',{style:{fontSize:'1.4em',margin:'.6em 0 .3em'}},'設備'),
 h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'.5em'}},UPS.map(u=>{const own=s.ups[u.id],lock=s.lv<u.lv||(u.req&&!s.ups[u.req]);return h('div',{key:u.id,style:{display:'flex',flexDirection:'column',gap:'.4em',padding:'.5em',border:'3px solid #8a4f24',background:'#3a1c10'}},
-h('span',null,u.n+' — '+u.d+(lock?'  (Lv'+u.lv+(u.req?' / 需先购前置':'')+')':'')),h('button',{className:'btn',disabled:own||lock||s.money<u.cost,onClick:()=>buy(u.id)},own?'已购':'¥'+u.cost))})),
-h('div',{style:{textAlign:'right',marginTop:'.5em'}},h('button',{className:'btn g',onClick:()=>setOpen(false)},'关闭')))))}
+h('span',null,u.n+' — '+u.d+(lock?'  (Lv'+u.lv+(u.req?' / 需先購前置':'')+')':'')),h('button',{className:'btn',disabled:own||lock||s.money<u.cost,onClick:()=>buy(u.id)},own?'已購':'¥'+u.cost))})),
+h('div',{style:{textAlign:'right',marginTop:'.5em'}},h('button',{className:'btn g',onClick:()=>setOpen(false)},'關閉')))))}
 ReactDOM.createRoot(document.getElementById('root')).render(h(App));
 </script><script>if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{})</script></body></html>
