@@ -268,7 +268,7 @@ G.floats.push({x:c.x-12,y:c.y-36,t:0,tx:'+¥'+rev,c:'#ffd24a'},{x:c.x-12,y:c.y-4
 G.serving=null;G.bowl=[];G.noodle=null;G.cook=null;zoomOut();checkLv()}
 function leave(c){c.state='leave';c.wp=[[c.x,WY],[345,WY]]}
 function spawn(){const s=SO.slice(0,seatN()).find(i=>!G.cust.some(c=>c.seat===i&&c.state!=='leave'));if(s==null)return;
-const u=unl(),L=lvl(),n=L>=10?5:L>=7?4:1+(rnd()<.5?1:0)+(L>=3&&rnd()<.4?1:0),max=30*(G.ups.warm?1.25:1)*(G.ups.ac?1.2:1)*(1+(G.rep-3)*.05);
+const u=unl(),L=lvl(),n=L>=10?1+(rnd()*5|0):L>=7?1+(rnd()*4|0):1+(rnd()<.5?1:0)+(L>=3&&rnd()<.4?1:0),max=30*(G.ups.warm?1.25:1)*(G.ups.ac?1.2:1)*(1+(G.rep-3)*.05);
 G.cust.push({id:G.nid++,x:-12,y:WY,seat:s,state:'walk',wp:[[SX[s],WY],[SX[s],SY]],t:rnd()*3,hair:HAIR[rnd()*5|0],shirt:SHIRT[rnd()*5|0],
 order:(n>=4?u.map(i=>i.id).sort(()=>rnd()-.5).slice(0,n):Array.from({length:n},()=>u[rnd()*u.length|0].id)),pat:max,max})}
 function bot(dt){const d=G.demo;d.bt=(d.bt||0)-dt;
