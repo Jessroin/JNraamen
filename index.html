@@ -376,7 +376,7 @@ const saveGame=i=>{const a=getSaves();a[i]={money:G.money,sales:G.sales,fame:G.f
 const loadGame=i=>{const d=getSaves()[i];if(!d)return;G=mk();Object.assign(G,{money:d.money,dm:d.money,sales:d.sales,fame:d.fame,rep:d.rep,served:d.served,ups:d.ups||{},lvShown:d.lvShown||1});G.scene='shop';G.fade=1};
 const newGame=()=>{G=mk();G.scene='shop';G.fade=1};
 function goFull(open){const e=document.documentElement,f=e.requestFullscreen||e.webkitRequestFullscreen;const fb=()=>{if(open&&window.top!==window.self&&/^https?:/.test(location.href))window.open(location.href,'_blank')};
-if(!f)return fb();try{const r=f.call(e),ok=()=>{try{screen.orientation.lock('landscape').catch(()=>{})}catch(x){}};if(r&&r.then)r.then(ok,fb);else ok()}catch(x){fb()}}
+if(!f)return fb();try{const r=f.call(e),ok=()=>{};if(r&&r.then)r.then(ok,fb);else ok()}catch(x){fb()}}
 const fmtT=t=>{const d=new Date(t),p=n=>String(n).padStart(2,'0');return (d.getMonth()+1)+'/'+d.getDate()+' '+p(d.getHours())+':'+p(d.getMinutes())};
 const Ico=({id})=>h('img',{className:'ico',src:ICON[id],draggable:false,alt:IT[id].n});
 function App(){
