@@ -34,38 +34,41 @@ html,body{height:100%}body{touch-action:manipulation;align-items:center;justify-
 .wrap canvas{width:100%;height:100%;object-fit:fill}
 .bx[style*="width: 78%"]{max-width:none}
 .it{flex:1 1 0;min-width:0;white-space:nowrap;font-size:.85em;padding:.3em .15em}.it .ico{max-width:100%}
+html.lp .wrap{--sw:min(100vw,calc(100vh*.5625));aspect-ratio:9/16;display:flex;flex-direction:column;justify-content:center;padding-top:9.5em;font-size:clamp(11px,calc(var(--sw)*.04),22px);overflow:hidden;margin:auto}
+@supports (height:100dvh){html.lp .wrap{--sw:min(100vw,calc(100dvh*.5625))}}
+html.lp .wrap canvas{width:100%;height:auto;aspect-ratio:8/5;flex:none}
+html.lp .ov{flex-wrap:wrap}
+html.lp .bx[style*="width: 6"],html.lp .bx[style*="width: 7"]{width:94%!important;max-width:none}
+html.lp .btn{padding:.6em 1em;font-size:1.15em;min-height:2.6em}
+html.lp .btn.tb{font-size:.9em;padding:.4em .7em;min-height:0}
+html.lp .ov.hudr{position:static!important;width:100%;justify-content:center;gap:.6em;padding:.7em .6em}
+html.lp .ov.hudr>.bx{flex:1 1 100%;display:flex;gap:.6em;align-items:center}
+html.lp .ov.hudr>.btn{flex:1 1 40%}
+html.lp .ov.hudr>.tsave,html.lp .ov.hudr>.tleave{position:absolute;top:.6em;width:6.2em;min-width:0;min-height:0;flex:none;padding:.5em .2em;font-size:1em}
+html.lp .ov.hudr>.tleave{right:.6em}html.lp .ov.hudr>.tsave{right:7.2em}
+html.lp .ov.bn{top:7.7em!important;left:0!important;right:0!important}
+html.lp .ov.bn .bx{font-size:.95em!important;padding:.2em .6em}
+html.lp .ov.hint{position:static!important;justify-content:center;padding:.4em 0}
+html.lp .ov.sv{position:relative!important;bottom:auto!important;left:auto!important;transform:none!important;width:100%!important;max-width:none!important;border-width:3px 0 0;padding:.6em}
+html.lp .ov.sv div{flex-wrap:wrap!important;justify-content:center}
+html.lp .ov.sv .it{flex:1 1 17%;font-size:.9em;padding:.35em .1em}
+html.lp .ov.sv .slot{width:2.9em;height:2.7em}
+html.lp .ov.sv{gap:.4em}
+html.lp .ov.sv .btn{padding:.4em .8em;min-height:2.2em}
+html.lp .ov.sv .btn{flex:1 1 40%}
+html.lp .wrap:has(.sv){padding-top:1em}
+html.lp .wrap:has(.sv) .hudr{display:none}
+html.lp .wrap:has(.sv) .ov.hint.dm{position:absolute!important;top:.2em;left:0;right:0;padding:0;z-index:5}
+html.lp .tcol{left:0!important;right:0;justify-content:space-between!important;align-items:center!important;padding:7% 0 7%}
+html.lp .tt2{font-size:3.6em;text-align:center}
+html.lp .tbtn{flex-direction:row!important;flex-wrap:wrap;justify-content:center;align-items:center!important;width:84%}
+html.lp .tbtn .btn{flex:1 1 40%}html.lp .tbtn .btn.big{flex:1 1 100%}
+html:not(.sm) .vtog{display:none}
 @media (orientation:portrait) and (max-width:900px){
-.wrap{--sw:min(100vw,calc(100vh*.5625));aspect-ratio:9/16;display:flex;flex-direction:column;justify-content:center;padding-top:9.5em;font-size:clamp(11px,calc(var(--sw)*.04),22px);overflow:hidden;margin:auto}
-@supports (height:100dvh){.wrap{--sw:min(100vw,calc(100dvh*.5625))}}
-.wrap canvas{width:100%;height:auto;aspect-ratio:8/5;flex:none}
-.ov{flex-wrap:wrap}
-.bx[style*="width: 6"],.bx[style*="width: 7"]{width:94%!important;max-width:none}
-.btn{padding:.6em 1em;font-size:1.15em;min-height:2.6em}
-.btn.tb{font-size:.9em;padding:.4em .7em;min-height:0}
-.ov.hudr{position:static!important;width:100%;justify-content:center;gap:.6em;padding:.7em .6em}
-.ov.hudr>.bx{flex:1 1 100%;display:flex;gap:.6em;align-items:center}
-.ov.hudr>.btn{flex:1 1 40%}
-.ov.hudr>.tsave,.ov.hudr>.tleave{position:absolute;top:.6em;width:6.2em;min-width:0;min-height:0;flex:none;padding:.5em .2em;font-size:1em}
-.ov.hudr>.tleave{right:.6em}.ov.hudr>.tsave{right:7.2em}
-.ov.bn{top:7.7em!important;left:0!important;right:0!important}
-.ov.bn .bx{font-size:.95em!important;padding:.2em .6em}
-.ov.hint{position:static!important;justify-content:center;padding:.4em 0}
-.ov.sv{position:relative!important;bottom:auto!important;left:auto!important;transform:none!important;width:100%!important;max-width:none!important;border-width:3px 0 0;padding:.6em}
-.ov.sv div{flex-wrap:wrap!important;justify-content:center}
-.ov.sv .it{flex:1 1 17%;font-size:.9em;padding:.35em .1em}
-.ov.sv .slot{width:2.9em;height:2.7em}
-.ov.sv{gap:.4em}
-.ov.sv .btn{padding:.4em .8em;min-height:2.2em}
-.ov.sv .btn{flex:1 1 40%}
-.wrap:has(.sv){padding-top:1em}
-.wrap:has(.sv) .hudr{display:none}
-.wrap:has(.sv) .ov.hint.dm{position:absolute!important;top:.2em;left:0;right:0;padding:0;z-index:5}
-.tcol{left:0!important;right:0;justify-content:space-between!important;align-items:center!important;padding:7% 0 7%}
-.tt2{font-size:3.6em;text-align:center}
-.tbtn{flex-direction:row!important;flex-wrap:wrap;justify-content:center;align-items:center!important;width:84%}
-.tbtn .btn{flex:1 1 40%}.tbtn .btn.big{flex:1 1 100%}
+html.ll .wrap{--sw:min(100vh,calc(100vw*1.6),1120px);position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) rotate(90deg)}
+@supports (height:100dvh){html.ll .wrap{--sw:min(100dvh,calc(100vw*1.6),1120px)}}
 }
-</style><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#1a0d08"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="潔諾拉麵食堂"><link rel="apple-touch-icon" href="icon-192.png"></head><body><div id="root"></div>
+</style><script>(function(){var d=document.documentElement,sm=false;try{sm=Math.min(screen.width,screen.height)<700||matchMedia('(pointer:coarse)').matches}catch(e){}var v=sm?'p':'l';try{var s=localStorage.getItem('jnr_view');if(s==='p'||s==='l')v=s}catch(e){}d.className=(sm?'sm ':'')+(v==='p'?'lp':'ll')})()</script><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#1a0d08"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="潔諾拉麵食堂"><link rel="apple-touch-icon" href="icon-192.png"></head><body><div id="root"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
 <script>
@@ -380,13 +383,14 @@ if(!f)return fb();try{const r=f.call(e),ok=()=>{};if(r&&r.then)r.then(ok,fb);els
 const fmtT=t=>{const d=new Date(t),p=n=>String(n).padStart(2,'0');return (d.getMonth()+1)+'/'+d.getDate()+' '+p(d.getHours())+':'+p(d.getMinutes())};
 const Ico=({id})=>h('img',{className:'ico',src:ICON[id],draggable:false,alt:IT[id].n});
 function App(){
-const[s,setS]=useState(snap()),[open,setOpen]=useState(false),[tut,setTut]=useState(null),[sv,setSv]=useState(null),[saves,setSaves]=useState(()=>getSaves()),[pz,setPz]=useState(false),cv=useRef();
+const[view,setView]=useState(()=>document.documentElement.classList.contains('lp')?'p':'l'),[s,setS]=useState(snap()),[open,setOpen]=useState(false),[tut,setTut]=useState(null),[sv,setSv]=useState(null),[saves,setSaves]=useState(()=>getSaves()),[pz,setPz]=useState(false),cv=useRef();
 useEffect(()=>{G.paused=open||pz||sv!=null},[open,pz,sv]);
 useEffect(()=>{const k=e=>{if((e.key==='p'||e.key==='Escape')&&G.scene==='shop')setPz(v=>!v)};addEventListener('keydown',k);return()=>removeEventListener('keydown',k)},[]);
 useEffect(()=>{ctx=cv.current.getContext('2d');let last=performance.now(),raf;
 const loop=n=>{const dt=Math.min(.05,(n-last)/1000);last=n;update(dt);draw();raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop);
 const iv=setInterval(()=>setS(snap()),90);return()=>{cancelAnimationFrame(raf);clearInterval(iv)}},[]);
-const pos=e=>{const r=cv.current.getBoundingClientRect();return[(e.clientX-r.left)/r.width*W,(e.clientY-r.top)/r.height*H]};
+const tgView=()=>{const n=view==='p'?'l':'p';setView(n);const d=document.documentElement;d.className=(d.classList.contains('sm')?'sm ':'')+(n==='p'?'lp':'ll');try{localStorage.setItem('jnr_view',n)}catch(e){}if(n==='l')goFull();else{try{if(document.fullscreenElement)document.exitFullscreen()}catch(e){}}};
+const pos=e=>{const r=cv.current.getBoundingClientRect();const rot=document.documentElement.classList.contains('ll')&&matchMedia('(orientation:portrait) and (max-width:900px)').matches;if(!rot)return[(e.clientX-r.left)/r.width*W,(e.clientY-r.top)/r.height*H];const u=e.clientX-(r.left+r.width/2),v=e.clientY-(r.top+r.height/2);return[(v+r.height/2)/r.height*W,(-u+r.width/2)/r.width*H]};
 const inShop=(x,y)=>x>90&&x<230&&y>12&&y<150;
 const onClick=e=>{if(G.demo)return;const[x,y]=pos(e);
 if(G.scene==='street'){}
@@ -399,11 +403,11 @@ s.scene==='street'&&h('div',{className:'ov',style:{inset:0,background:'#f8dba9'}
 h('img',{src:COVER,style:{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover',pointerEvents:'none'}}),
 h('div',{className:'tcol',style:{position:'absolute',left:'5%',top:0,bottom:0,display:'flex',flexDirection:'column',alignItems:'flex-start',justifyContent:'center',gap:'1.2em',pointerEvents:'none'}},
 h('div',{className:'tt2',style:{marginTop:0,lineHeight:1.15}},...[...'潔諾'].map((ch,i)=>h('span',{key:'a'+i,className:'ch',style:{animationDelay:(i*.15)+'s'}},ch)),h('br'),...[...'拉麵食堂'].map((ch,i)=>h('span',{key:'b'+i,className:'ch',style:{animationDelay:(.3+i*.15)+'s'}},ch))),
-h('div',{className:'tbtn',style:{display:'flex',flexDirection:'column',gap:'.8em',alignItems:'flex-start'}},h('button',{className:'btn big',onClick:()=>{goFull();setPz(false);setTut(0)}},'開始遊戲'),saves.some(Boolean)&&h('button',{className:'btn big',onClick:()=>{setSaves(getSaves());setSv('load')}},'繼續遊戲'),h('button',{className:'btn g',onClick:()=>{G=mk();G.demo={t:0};G.scene='shop'}},'▶ 演示模式')))),
+h('div',{className:'tbtn',style:{display:'flex',flexDirection:'column',gap:'.8em',alignItems:'flex-start'}},h('button',{className:'btn big',onClick:()=>{if(view==='l'&&document.documentElement.classList.contains('sm'))goFull();setPz(false);setTut(0)}},'開始遊戲'),saves.some(Boolean)&&h('button',{className:'btn big',onClick:()=>{setSaves(getSaves());setSv('load')}},'繼續遊戲'),h('button',{className:'btn g',onClick:()=>{G=mk();G.demo={t:0};G.scene='shop'}},'▶ 演示模式'),h('button',{className:'btn g vtog',onClick:tgView},view==='p'?'切換橫式':'切換直式')))),
 s.scene==='shop'&&!s.order&&h('div',{className:'ov',style:{top:'2%',left:'1.5%'}},h('div',{className:'bx'},h('div',{style:{color:'#ffd24a',fontSize:'1.5em'}},'¥ '+s.money,s.res&&h('span',{key:s.res.key,className:'pop',style:{display:'inline-block',marginLeft:'.5em',color:'#8fe068',fontSize:'.7em'}},'+¥'+s.res.rev)),h('div',{style:{color:'#ff7a9a'}},'口碑 '+'★'.repeat(star)+'☆'.repeat(5-star)),h('div',{style:{color:'#ff9ab0'}},'人气 ♥ '+s.fame))),
 s.scene==='shop'&&h('div',{className:'ov hudr',style:{top:'2%',right:'1.5%',alignItems:'flex-start'}},
 h('div',{className:'bx'},'店铺 Lv'+s.lv,h('div',{className:'bar'},h('i',{style:{width:Math.min(100,s.prog*100)+'%'}}))),
-h('button',{className:'btn',onClick:()=>setPz(true)},'暂停'),!s.demo&&h('button',{className:'btn g',onClick:()=>setOpen(true)},'店铺·设备'),!s.demo&&!s.order&&h('button',{className:'btn g tsave',onClick:()=>{setSaves(getSaves());setSv('save')}},'保存紀錄'),
+h('button',{className:'btn',onClick:()=>setPz(true)},'暂停'),h('button',{className:'btn g vtog',onClick:tgView},view==='p'?'切換橫式':'切換直式'),!s.demo&&h('button',{className:'btn g',onClick:()=>setOpen(true)},'店铺·设备'),!s.demo&&!s.order&&h('button',{className:'btn g tsave',onClick:()=>{setSaves(getSaves());setSv('save')}},'保存紀錄'),
 !s.demo&&!s.order&&h('button',{className:'btn tleave',onClick:()=>{if(G.serving)cancel();setScene('street')}},'离开')),
 s.demo!=null&&h('div',{className:'ov hint dm',style:s.order?{top:'1%',left:0,right:0,justifyContent:'center',zIndex:5}:{bottom:'3%',left:0,right:0,justifyContent:'center'}},h('div',{className:'bx blink'},'DEMO 自动演示中 · '+s.demo+'s'),h('button',{className:'btn',onClick:()=>{G=mk()}},'退出')),
 s.scene==='shop'&&!s.order&&!s.demo&&h('div',{className:'ov hint',style:{bottom:'3%',left:0,right:0,justifyContent:'center'}},h('div',{className:'bx blink'},'点击等待中的客人开始点餐')),
