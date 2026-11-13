@@ -268,7 +268,7 @@ G.floats.push({x:c.x-12,y:c.y-36,t:0,tx:'+¥'+rev,c:'#ffd24a'},{x:c.x-12,y:c.y-4
 G.serving=null;G.bowl=[];G.noodle=null;G.cook=null;zoomOut();checkLv()}
 function leave(c){c.state='leave';c.wp=[[c.x,WY],[345,WY]]}
 function spawn(){const s=SO.slice(0,seatN()).find(i=>!G.cust.some(c=>c.seat===i&&c.state!=='leave'));if(s==null)return;
-const u=unl(),L=lvl(),n=L>12?5:L>8?4:1+(rnd()<.5?1:0)+(L>=3&&rnd()<.4?1:0),max=30*(G.ups.warm?1.25:1)*(G.ups.ac?1.2:1)*(1+(G.rep-3)*.05);
+const u=unl(),L=lvl(),n=L>=10?5:L>=7?4:1+(rnd()<.5?1:0)+(L>=3&&rnd()<.4?1:0),max=30*(G.ups.warm?1.25:1)*(G.ups.ac?1.2:1)*(1+(G.rep-3)*.05);
 G.cust.push({id:G.nid++,x:-12,y:WY,seat:s,state:'walk',wp:[[SX[s],WY],[SX[s],SY]],t:rnd()*3,hair:HAIR[rnd()*5|0],shirt:SHIRT[rnd()*5|0],
 order:(n>=4?u.map(i=>i.id).sort(()=>rnd()-.5).slice(0,n):Array.from({length:n},()=>u[rnd()*u.length|0].id)),pat:max,max})}
 function bot(dt){const d=G.demo;d.bt=(d.bt||0)-dt;
@@ -336,9 +336,9 @@ const sc=SIL.getContext('2d');SIL.width=SIL.width;sc.drawImage(OFF,0,0);sc.globa
 ctx.globalAlpha=.6+.4*Math.sin(G.t*6);for(const[dx,dy]of[[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[1,-1],[-1,1],[1,1]])ctx.drawImage(SIL,X-32+dx,Y-64+dy);ctx.globalAlpha=1}
 ctx.save();ctx.translate(X,Y);body();ctx.restore();
 const y=Y,x=X;
-if(c.state==='wait'){const n=c.order.length,bw=n*13+3,bx=Math.round(c.x-bw/2),by=Math.round(y-72+Math.sin(G.t*4+c.id));
-R(bx-1,by-1,bw+2,15,'#3a1c10');R(bx,by,bw,13,'#fff6dc');R(x-1,by+13,3,2,'#fff6dc');c.order.forEach((o,i)=>ctx.drawImage(MINI[o],bx+2+i*13-(i?0:0),by+1));
-const f=Math.max(0,c.pat/c.max);R(bx-1,by+14,bw+2,5,'#fff6dc');R(bx,by+15,bw,3,'#111');R(bx,by+15,bw*f,3,f>.5?'#5fd35f':f>.25?'#f2b84b':'#e8452a');
+if(c.state==='wait'){const n=c.order.length,rows=n===4?[2,2]:n===5?[3,2]:[n],mx=Math.max(...rows),bw=mx*13+3,bh=rows.length*13,bx=Math.round(c.x-bw/2),by=Math.round(y-72-(rows.length-1)*13+Math.sin(G.t*4+c.id));
+R(bx-1,by-1,bw+2,bh+2,'#3a1c10');R(bx,by,bw,bh,'#fff6dc');R(x-1,by+bh,3,2,'#fff6dc');let k=0;rows.forEach((rn,ri)=>{const ox=Math.round((mx-rn)*13/2);for(let q=0;q<rn;q++,k++)ctx.drawImage(MINI[c.order[k]],bx+2+ox+q*13,by+1+ri*13)});
+const f=Math.max(0,c.pat/c.max);R(bx-1,by+bh+1,bw+2,5,'#fff6dc');R(bx,by+bh+2,bw,3,'#111');R(bx,by+bh+2,bw*f,3,f>.5?'#5fd35f':f>.25?'#f2b84b':'#e8452a');
 }}
 function lantern(x){const fl=.14+Math.sin(G.t*8+x)*.04;glow(x,32,28,'#ff9a3c',fl);R(x,8,1,12,'#111');R(x-6,18,12,3,'#111');R(x-8,21,16,21,'#e8452a');R(x-5,24,10,15,Math.sin(G.t*8+x)>0?'#ffd27a':'#ffbf5e');R(x-6,42,12,3,'#111')}
 function bowls(x,y,n){for(let i=0;i<n;i++){const yy=y-i*5;R(x,yy,16,5,'#d93a35');R(x,yy,16,1,'#fff6dc');R(x+2,yy+2,2,1,'#fff6dc');R(x+7,yy+2,2,1,'#fff6dc');R(x+12,yy+2,2,1,'#fff6dc');R(x+3,yy+5,10,1,'#8f1f1c');R(x,yy,1,5,'#8f1f1c');R(x+15,yy,1,5,'#8f1f1c');R(x+1,yy+4,14,1,'#8f1f1c');R(x+1,yy+1,3,1,'#fff6dc')}}
@@ -423,7 +423,7 @@ h('button',{className:'btn',onClick:()=>setPz(true)},'暫停'),!s.demo&&h('butto
 s.demo!=null&&h('div',{className:'ov hint dm',style:s.order?{top:'1%',left:0,right:0,justifyContent:'center',zIndex:5}:{bottom:'3%',left:0,right:0,justifyContent:'center'}},h('div',{className:'bx blink'},'DEMO 自動演示中 · '+s.demo+'s'),h('button',{className:'btn',onClick:()=>{G=mk()}},'退出')),
 s.scene==='shop'&&!s.order&&!s.demo&&h('div',{className:'ov hint',style:{bottom:'3%',left:0,right:0,justifyContent:'center'}},h('div',{className:'bx blink'},'點擊等待中的客人開始點餐')),
 s.order&&h('div',{className:'ov bx sv',style:{bottom:'2%',left:'50%',transform:'translateX(-50%)',flexDirection:'column',alignItems:'center',width:'78%'}},
-h('div',{style:{display:'flex',gap:'.6em',alignItems:'center'}},'點單:',h('div',{style:{display:'flex',flexDirection:'column',gap:'.3em',alignItems:'center'}},(s.order.length===4?[[0,2],[2,4]]:s.order.length===5?[[0,3],[3,5]]:[[0,s.order.length]]).map(([a,b],r)=>h('div',{key:r,style:{display:'flex',gap:'.4em',flexWrap:'nowrap'}},s.order.slice(a,b).map((o,i)=>h(Ico,{key:a+i,id:o}))))),h('div',{className:'bar'},h('i',{style:{width:Math.max(0,s.pf*100)+'%',background:s.pf>.4?'#5fd35f':'#e8452a'}}))),
+h('div',{style:{display:'flex',gap:'.6em',alignItems:'center'}},'點單:',h('div',{style:{display:'flex',gap:'.4em',flexWrap:'nowrap'}},s.order.map((o,i)=>h(Ico,{key:i,id:o}))),h('div',{className:'bar'},h('i',{style:{width:Math.max(0,s.pf*100)+'%',background:s.pf>.4?'#5fd35f':'#e8452a'}}))),
 h('div',{className:'crow',style:{display:'flex',gap:'.6em',alignItems:'center'}},!s.noodle&&h('span',{style:{color:'#ffd24a'}},'① 煮麵:'),s.noodle?h('div',{style:{width:'16em',textAlign:'center',color:s.noodle==='bad'?'#ff9a7a':'#8fe068'}},(s.noodle==='perfect'?'完美彈牙!':s.noodle==='ok'?'還可以':'煮壞了…')):h('div',{className:'bar',style:{width:'16em',position:'relative'}},h('i',{style:{width:Math.min(100,(s.cook||0)*100)+'%',background:'#e8c070'}}),h('b',{style:{position:'absolute',left:(s.zs*100)+'%',top:0,bottom:0,width:'22%',border:'2px solid #5fd35f',pointerEvents:'none'}})),
 s.noodle?h('span',{className:'btn st2',style:{background:'transparent',borderColor:'transparent',boxShadow:'none',color:'#ffd24a',pointerEvents:'none',textAlign:'center',minWidth:'5.5em'}},'② 放配料'):s.cook==null?h('button',{className:'btn',onClick:startCook},'下鍋'):h('button',{className:'btn g',onClick:takeNoodle},'起鍋!'),!s.noodle&&h('span',{className:'btn st2 ph','aria-hidden':true},'② 放配料')),
 h('div',{className:'ings',style:{display:'flex',gap:'.4em',flexWrap:'nowrap',justifyContent:'center',opacity:s.noodle?1:.35,pointerEvents:s.noodle?'auto':'none'}},un.map(id=>h('button',{key:id,className:'it',disabled:!s.noodle,onClick:()=>pick(id)},h(Ico,{id}),IT[id].n))),
