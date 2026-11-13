@@ -46,7 +46,7 @@ html.lp .ov.hudr{position:static!important;width:100%;justify-content:center;gap
 html.lp .ov.hudr>.bx{flex:1 1 100%;display:flex;gap:.6em;align-items:center}
 html.lp .ov.hudr>.btn{flex:1 1 20%}
 html.lp .ov.hudr>.vtog{flex:none;width:6.2em;min-width:0;min-height:0;padding:.5em .2em;font-size:1em}
-.brk{display:none}.st2.ph{display:none}html.ll.sm .st2.ph{display:block;visibility:hidden;pointer-events:none;border-color:transparent;box-shadow:none}html.ll.sm .crow{flex-wrap:wrap;justify-content:center}html.ll.sm .crow .st2{flex:0 0 100%;min-height:0;padding-top:.1em;padding-bottom:.1em}html.lp .ov.hudr>.brk{display:block;flex:0 0 100%;height:0;margin:-.3em 0}.lvbx{text-align:center}.lvbx .bar{margin:.2em auto 0}
+.brk{display:none}.st2.ph{display:none}html.ll .st2.ph{display:block;visibility:hidden;pointer-events:none;border-color:transparent;box-shadow:none}html.ll .crow{flex-wrap:wrap;justify-content:center}html.ll .crow .st2{flex:0 0 100%;min-height:0;padding-top:.1em;padding-bottom:.1em}html.lp .ov.hudr>.brk{display:block;flex:0 0 100%;height:0;margin:-.3em 0}.lvbx{text-align:center}.lvbx .bar{margin:.2em auto 0}
 html.lp .ov.hudr>.bx.lvbx{justify-content:center}
 .it:disabled{cursor:default;border-color:#5a3a24}
 html.lp .ov.hudr>.tsave,html.lp .ov.hudr>.tleave{position:absolute;top:.6em;width:6.2em;min-width:0;min-height:0;flex:none;padding:.5em .2em;font-size:1em}
@@ -382,7 +382,7 @@ if(G.scene==='shop'&&G.cu>.01){ctx.globalAlpha=Math.min(1,G.cu);ctx.imageSmoothi
 if(G.fade>0){ctx.globalAlpha=G.fade;R(0,0,W,H,'#000');ctx.globalAlpha=1}}
 function snap(){const s=G.serving;return{scene:G.scene,money:Math.round(G.dm),rep:G.rep,fame:Math.floor(G.fame),lv:lvl(),prog:prog(),order:s?s.order.slice():null,pf:s?s.pat/s.max:0,
 bowl:G.bowl.slice(),ups:{...G.ups},demo:G.demo?Math.max(0,30-Math.floor(G.demo.t)):null,res:G.res&&G.res.t<2.4?G.res:null,banner:G.banner&&G.banner.t<3.5?G.banner.tx:null,wait:G.cust.some(c=>c.state==='wait'),zs:G.zs,cook:G.cook?G.cook.t/4:null,noodle:G.noodle,sp:G.stopP||0,acc:G.acc||0}}
-const TUT=[['歡迎來到潔諾拉麵食堂','你是拉麵店的店員!接待客人、煮出好吃的拉麵,賺錢讓小店升級。'],['① 接待客人','客人坐下後,頭上會出現點單泡泡。點一下等待中的客人,就能開始做他的拉麵。客人的耐心條見底會生氣離開。'],['② 煮麵','按「下鍋」開始煮麵。當進度條走進綠色框框時,立刻按「起鍋」。煮得越準,麵越好吃。'],['③ 放配料','選擇和點單一樣的配料放進碗裡。放錯或多放會扣分。'],['④ 上菜','按「上菜」把拉麵端給客人。賺到的錢會顯示在金錢欄旁和客人頭上。'],['⑤ 店鋪成長','口碑和人氣會讓店鋪升級,解鎖新配料,也可以用賺來的錢購買設備。'],['⑥ 存檔','按畫面上方的「保存紀錄」就能存檔。存檔是放在瀏覽器裡,換瀏覽器或清除網站資料後就會不見。如果用無痕視窗開,關掉視窗也會消失!準備好就開店吧!']];
+const TUT=[['歡迎來到潔諾拉麵食堂','你是拉麵店的店員!接待客人、煮出好吃的拉麵,賺錢讓小店升級。'],['① 接待客人','客人坐下後,頭上會出現點單泡泡。點一下等待中的客人,就能開始做他的拉麵。客人的耐心條見底會生氣離開。'],['② 煮麵','按「下鍋」開始煮麵。當進度條走進綠色框框時,立刻按「起鍋」。煮得越準,麵越好吃。'],['③ 放配料','選擇和點單一樣的配料放進碗裡。放錯或多放會扣分。'],['④ 上菜','按「上菜」把拉麵端給客人。賺到的錢會顯示在客人頭上。'],['⑤ 店鋪成長','口碑和人氣會讓店鋪升級,解鎖新配料,也可以用賺來的錢購買設備。'],['⑥ 存檔','按畫面上方的「保存紀錄」就能存檔。存檔是放在瀏覽器裡,換瀏覽器或清除網站資料後就會不見。如果用無痕視窗開,關掉視窗也會消失!準備好就開店吧!']];
 const SKEY='jnr_saves_v1';let MEM=[null,null,null];
 const getSaves=()=>{try{const v=JSON.parse(localStorage.getItem(SKEY));if(Array.isArray(v))return[0,1,2].map(i=>v[i]||null)}catch(e){}return MEM.slice()};
 const putSaves=a=>{MEM=a.slice();try{localStorage.setItem(SKEY,JSON.stringify(a))}catch(e){}};
