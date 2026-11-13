@@ -30,8 +30,8 @@ canvas{width:100%;height:100%;image-rendering:pixelated;display:block}
 :root{padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
 html,body{height:100%}body{touch-action:manipulation;align-items:center;justify-content:center;overflow:hidden}
 .btn{white-space:nowrap}.btn.tb{font-size:.9em;padding:.4em .7em;min-height:0}
-.wrap{--sw:min(100vw,calc(100vh*1.6),1120px);width:var(--sw);height:auto;aspect-ratio:8/5;border:0;box-shadow:none;background:#1a0d08;font-size:clamp(10px,calc(var(--sw)*.0144),18px)}
-@supports (height:100dvh){html{height:100dvh}.wrap{--sw:min(100vw,calc(100dvh*1.6),1120px)}}
+.wrap{--sw:min(100vw,calc(100vh*1.6));width:var(--sw);height:auto;aspect-ratio:8/5;border:0;box-shadow:none;background:#1a0d08;font-size:clamp(10px,calc(var(--sw)*.0144),44px)}
+@supports (height:100dvh){html{height:100dvh}.wrap{--sw:min(100vw,calc(100dvh*1.6))}}
 .wrap canvas{width:100%;height:100%;object-fit:fill}
 .bx[style*="width: 78%"]{max-width:none}
 .it{flex:1 1 0;min-width:0;white-space:nowrap;font-size:.85em;padding:.3em .15em}.it .ico{max-width:100%}
@@ -70,8 +70,8 @@ html.lp .tbtn{flex-direction:row!important;flex-wrap:wrap;justify-content:center
 html.lp .tbtn .btn{flex:1 1 40%}html.lp .tbtn .btn.big{flex:1 1 100%}
 html:not(.sm) .vtog{display:none}
 @media (orientation:portrait) and (max-width:900px){
-html.ll .wrap{--sw:min(100vh,calc(100vw*1.6),1120px);position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) rotate(90deg)}
-@supports (height:100dvh){html.ll .wrap{--sw:min(100dvh,calc(100vw*1.6),1120px)}}
+html.ll .wrap{--sw:min(100vh,calc(100vw*1.6));position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) rotate(90deg)}
+@supports (height:100dvh){html.ll .wrap{--sw:min(100dvh,calc(100vw*1.6))}}
 }
 /* 平板/手機橫放:不限制最大寬度,依螢幕等比放到最大 */
 @media (orientation:landscape){html.ll.sm .wrap{--sw:min(100vw,calc(100vh*1.6));font-size:clamp(10px,calc(var(--sw)*.0144),44px)}}
@@ -415,7 +415,7 @@ h('img',{src:COVER,style:{position:'absolute',inset:0,width:'100%',height:'100%'
 h('div',{className:'tcol',style:{position:'absolute',left:'5%',top:0,bottom:0,display:'flex',flexDirection:'column',alignItems:'flex-start',justifyContent:'center',gap:'1.2em',pointerEvents:'none'}},
 h('div',{className:'tt2',style:{marginTop:0,lineHeight:1.15}},...[...'潔諾'].map((ch,i)=>h('span',{key:'a'+i,className:'ch',style:{animationDelay:(i*.15)+'s'}},ch)),h('br'),...[...'拉麵食堂'].map((ch,i)=>h('span',{key:'b'+i,className:'ch',style:{animationDelay:(.3+i*.15)+'s'}},ch))),
 h('div',{className:'tbtn',style:{display:'flex',flexDirection:'column',gap:'.8em',alignItems:'flex-start'}},h('button',{className:'btn big',onClick:()=>{if(view==='l'&&document.documentElement.classList.contains('sm'))goFull();setPz(false);setTut(0)}},'開始遊戲'),saves.some(Boolean)&&h('button',{className:'btn big',onClick:()=>{setSaves(getSaves());setSv('load')}},'繼續遊戲'),h('button',{className:'btn g',onClick:()=>{G=mk();G.demo={t:0};G.scene='shop'}},'▶ 演示模式'),h('button',{className:'btn g vtog',onClick:tgView},view==='p'?'切換橫式':'切換直式')))),
-s.scene==='shop'&&!s.order&&h('div',{className:'ov',style:{top:'2%',left:'1.5%'}},h('div',{className:'bx'},h('div',{style:{color:'#ffd24a',fontSize:'1.5em'}},'¥ '+s.money,s.res&&h('span',{key:s.res.key,className:'pop',style:{display:'inline-block',marginLeft:'.5em',color:'#8fe068',fontSize:'.7em'}},'+¥'+s.res.rev)),h('div',{style:{color:'#ff7a9a'}},'口碑 '+'★'.repeat(star)+'☆'.repeat(5-star)),h('div',{style:{color:'#ff9ab0'}},'人氣 ♥ '+s.fame))),
+s.scene==='shop'&&!s.order&&h('div',{className:'ov',style:{top:'2%',left:'1.5%'}},h('div',{className:'bx'},h('div',{style:{color:'#ffd24a',fontSize:'1.5em'}},'¥ '+s.money),h('div',{style:{color:'#ff7a9a'}},'口碑 '+'★'.repeat(star)+'☆'.repeat(5-star)),h('div',{style:{color:'#ff9ab0'}},'人氣 ♥ '+s.fame))),
 s.scene==='shop'&&h('div',{className:'ov hudr',style:{top:'2%',right:'1.5%',alignItems:'flex-start'}},
 h('div',{className:'bx lvbx'},'店舖等級 Lv'+s.lv,h('div',{className:'bar'},h('i',{style:{width:Math.min(100,s.prog*100)+'%'}}))),
 h('button',{className:'btn',onClick:()=>setPz(true)},'暫停'),!s.demo&&h('button',{className:'btn g',onClick:()=>setOpen(true)},'店舖設備'),h('div',{className:'brk'}),h('button',{className:'btn g vtog',onClick:tgView},view==='p'?'切換橫式':'切換直式'),!s.demo&&!s.order&&h('button',{className:'btn g tsave',onClick:()=>{setSaves(getSaves());setSv('save')}},'保存紀錄'),
@@ -423,7 +423,7 @@ h('button',{className:'btn',onClick:()=>setPz(true)},'暫停'),!s.demo&&h('butto
 s.demo!=null&&h('div',{className:'ov hint dm',style:s.order?{top:'1%',left:0,right:0,justifyContent:'center',zIndex:5}:{bottom:'3%',left:0,right:0,justifyContent:'center'}},h('div',{className:'bx blink'},'DEMO 自動演示中 · '+s.demo+'s'),h('button',{className:'btn',onClick:()=>{G=mk()}},'退出')),
 s.scene==='shop'&&!s.order&&!s.demo&&h('div',{className:'ov hint',style:{bottom:'3%',left:0,right:0,justifyContent:'center'}},h('div',{className:'bx blink'},'點擊等待中的客人開始點餐')),
 s.order&&h('div',{className:'ov bx sv',style:{bottom:'2%',left:'50%',transform:'translateX(-50%)',flexDirection:'column',alignItems:'center',width:'78%'}},
-h('div',{style:{display:'flex',gap:'.6em',alignItems:'center'}},'點單:',s.order.map((o,i)=>h(Ico,{key:i,id:o})),h('div',{className:'bar'},h('i',{style:{width:Math.max(0,s.pf*100)+'%',background:s.pf>.4?'#5fd35f':'#e8452a'}}))),
+h('div',{style:{display:'flex',gap:'.6em',alignItems:'center'}},'點單:',h('div',{style:{display:'flex',flexDirection:'column',gap:'.3em',alignItems:'center'}},(s.order.length===4?[[0,2],[2,4]]:s.order.length===5?[[0,3],[3,5]]:[[0,s.order.length]]).map(([a,b],r)=>h('div',{key:r,style:{display:'flex',gap:'.4em',flexWrap:'nowrap'}},s.order.slice(a,b).map((o,i)=>h(Ico,{key:a+i,id:o}))))),h('div',{className:'bar'},h('i',{style:{width:Math.max(0,s.pf*100)+'%',background:s.pf>.4?'#5fd35f':'#e8452a'}}))),
 h('div',{className:'crow',style:{display:'flex',gap:'.6em',alignItems:'center'}},!s.noodle&&h('span',{style:{color:'#ffd24a'}},'① 煮麵:'),s.noodle?h('div',{style:{width:'16em',textAlign:'center',color:s.noodle==='bad'?'#ff9a7a':'#8fe068'}},(s.noodle==='perfect'?'完美彈牙!':s.noodle==='ok'?'還可以':'煮壞了…')):h('div',{className:'bar',style:{width:'16em',position:'relative'}},h('i',{style:{width:Math.min(100,(s.cook||0)*100)+'%',background:'#e8c070'}}),h('b',{style:{position:'absolute',left:(s.zs*100)+'%',top:0,bottom:0,width:'22%',border:'2px solid #5fd35f',pointerEvents:'none'}})),
 s.noodle?h('span',{className:'btn st2',style:{background:'transparent',borderColor:'transparent',boxShadow:'none',color:'#ffd24a',pointerEvents:'none',textAlign:'center',minWidth:'5.5em'}},'② 放配料'):s.cook==null?h('button',{className:'btn',onClick:startCook},'下鍋'):h('button',{className:'btn g',onClick:takeNoodle},'起鍋!'),!s.noodle&&h('span',{className:'btn st2 ph','aria-hidden':true},'② 放配料')),
 h('div',{className:'ings',style:{display:'flex',gap:'.4em',flexWrap:'nowrap',justifyContent:'center',opacity:s.noodle?1:.35,pointerEvents:s.noodle?'auto':'none'}},un.map(id=>h('button',{key:id,className:'it',disabled:!s.noodle,onClick:()=>pick(id)},h(Ico,{id}),IT[id].n))),
