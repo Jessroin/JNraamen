@@ -46,7 +46,7 @@ html.lp .ov.hudr{position:static!important;width:100%;justify-content:center;gap
 html.lp .ov.hudr>.bx{flex:1 1 100%;display:flex;gap:.6em;align-items:center}
 html.lp .ov.hudr>.btn{flex:1 1 20%}
 html.lp .ov.hudr>.vtog{flex:none;width:6.2em;min-width:0;min-height:0;padding:.5em .2em;font-size:1em}
-.brk{display:none}.st2.ph{display:none}html.ll .st2.ph{display:block;visibility:hidden;pointer-events:none;border-color:transparent;box-shadow:none}html.ll .crow{flex-wrap:wrap;justify-content:center}html.ll .crow .st2{flex:0 0 100%;min-height:0;padding-top:.1em;padding-bottom:.1em}html.lp .ov.hudr>.brk{display:block;flex:0 0 100%;height:0;margin:-.3em 0}.lvbx{text-align:center}.lvbx .bar{margin:.2em auto 0}
+.ov.hint.dm{flex-wrap:nowrap!important;white-space:nowrap;align-items:center;gap:.5em}html .ov.hint.dm .btn{font-size:.85em!important;padding:.25em .6em!important;min-height:0!important;flex:none!important}html .ov.hint.dm .blink{font-size:1.1em!important}.btn:active:not(:disabled),.btn.pr:not(:disabled){transform:translateY(2px) scale(.97);box-shadow:inset 0 2px 0 #0008,0 0 0 2px #fff7!important;filter:brightness(.82)}.it:active:not(:disabled),.it.pr:not(:disabled){transform:translateY(2px) scale(.96);filter:brightness(.82);border-color:#fff;box-shadow:0 0 0 2px #fff7}.btn,.it{transition:transform .06s,filter .06s,box-shadow .06s}.btn.bought:disabled{filter:none;opacity:1;background:#f2b84b;color:#3a1c10;border-color:#8a5a10;box-shadow:inset 0 -3px 0 #c48a1c,0 3px 0 #000}.brk{display:none}.st2.ph{display:none}html.ll .st2.ph{display:block;visibility:hidden;pointer-events:none;border-color:transparent;box-shadow:none}html.ll .crow{flex-wrap:wrap;justify-content:center;width:30em;max-width:100%}.rsl{width:16em}html.ll .rsl{width:100%}html.ll .crow .st2{flex:0 0 100%;min-height:0;padding-top:.1em;padding-bottom:.1em}html.lp .ov.hudr>.brk{display:block;flex:0 0 100%;height:0;margin:-.3em 0}.lvbx{text-align:center}.lvbx .bar{margin:.2em auto 0}
 html.lp .ov.hudr>.bx.lvbx{justify-content:center}
 .it:disabled{cursor:default;border-color:#5a3a24}
 html.lp .ov.hudr>.tsave,html.lp .ov.hudr>.tleave{position:absolute;top:.6em;width:6.2em;min-width:0;min-height:0;flex:none;padding:.5em .2em;font-size:1em}
@@ -73,6 +73,11 @@ html:not(.sm) .vtog{display:none}
 html.ll .wrap{--sw:min(100vh,calc(100vw*1.6));position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) rotate(90deg)}
 @supports (height:100dvh){html.ll .wrap{--sw:min(100dvh,calc(100vw*1.6))}}
 }
+/* 手機橫式:操作字體與按鈕放大 */
+html.ll.sm .ov.sv{font-size:1.25em}html.ll.sm .ov.hudr .btn,html.ll.sm .ov.hint .btn{font-size:1.25em}html.ll.sm .ov.hudr .lvbx{font-size:1.2em}html.ll.sm .mny{font-size:1.2em}html.ll.sm .blink{font-size:1.7em}
+html.lp .shopm{width:94%!important}
+.tpc{display:flex;align-items:center;gap:.5em;border:3px solid #8a4f24;background:#3a1c10}.tpc>div{flex:1;min-width:0}
+html.lp .tpc{display:grid;grid-template-columns:auto 1fr;gap:.4em .6em;align-items:center}html.lp .tpc>.act{grid-column:1/-1;width:100%;text-align:center;min-height:0;padding:.35em .2em;font-size:1em}html.lp .tpc .ico{width:2.4em}html.lp .upg{grid-template-columns:1fr!important}
 /* 平板/手機橫放:不限制最大寬度,依螢幕等比放到最大 */
 @media (orientation:landscape){html.ll.sm .wrap{--sw:min(100vw,calc(100vh*1.6));font-size:clamp(10px,calc(var(--sw)*.0144),44px)}}
 @supports (height:100dvh){@media (orientation:landscape){html.ll.sm .wrap{--sw:min(100vw,calc(100dvh*1.6))}}}
@@ -221,19 +226,21 @@ const ITEMS=[
 {id:'co',n:'玉米',k:'米',p:45,c:'#f2d23a',lv:4},{id:'ab',n:'炙燒五花',k:'肉',p:140,c:'#a8553a',lv:5},
 {id:'bs',n:'豆芽',k:'芽',p:55,c:'#f4f0d0',lv:6},{id:'ch',n:'辣味噌',k:'辣',p:100,c:'#d8381c',lv:7}];
 const IT={};ITEMS.forEach(i=>IT[i.id]=i);
+const TN=['基本','中級','高級'],TM=[1,1.5,2.1],TC=['#cfc0a0','#6ab8ff','#ffd24a'];
+const tcost=(id,t)=>Math.round(IT[id].p*[0,12,30][t]);
 const UPS=[
-{id:'warm',n:'保溫鍋',d:'客人更有耐心 +25%',cost:150,lv:1},
-{id:'seat1',n:'追加座位',d:'座位 +1',cost:200,lv:2},
-{id:'lamp',n:'招牌燈籠',d:'人氣增長 ×1.5',cost:300,lv:2},
-{id:'seat2',n:'再加座位',d:'座位 +1',cost:500,lv:3,req:'seat1'},
-{id:'broth',n:'特製高湯',d:'售價 ×1.2',cost:450,lv:3},
-{id:'ac',n:'冷氣空調',d:'客人耐心 +20%',cost:400,lv:3},
-{id:'fast',n:'快速餐具',d:'客人吃得更快',cost:600,lv:4},
-{id:'sign',n:'霓虹招牌',d:'客人來得更頻繁',cost:700,lv:5},
-{id:'tip',n:'小費罐',d:'收入 ×1.15',cost:900,lv:6}];
-const LV=[0,6,16,32,56,90,140,210],SO=[1,2,3,4,0,5],SX=[45,100,155,210,265,305],SY=149;
+{id:'warm',n:'保溫鍋',d:'客人更有耐心 +25%',cost:600,lv:1},
+{id:'seat1',n:'追加座位',d:'座位 +1',cost:900,lv:2},
+{id:'lamp',n:'招牌燈籠',d:'人氣增長 ×1.5',cost:1200,lv:2},
+{id:'seat2',n:'再加座位',d:'座位 +1',cost:2200,lv:3,req:'seat1'},
+{id:'broth',n:'特製高湯',d:'售價 ×1.2',cost:1800,lv:3},
+{id:'ac',n:'冷氣空調',d:'客人耐心 +20%',cost:1600,lv:3},
+{id:'fast',n:'快速餐具',d:'客人吃得更快',cost:2800,lv:4},
+{id:'sign',n:'霓虹招牌',d:'客人來得更頻繁',cost:3200,lv:5},
+{id:'tip',n:'小費罐',d:'收入 ×1.15',cost:4500,lv:6}];
+const LV=[0,6,16,32,56,90,140,210],SY=149,SXf=i=>Math.round((i+.5)*W/seatN());
 const HAIR=['#3b2a22','#6b4a3a','#1e2a55','#a06a3a','#2b2b2b'],SHIRT=['#2b3a5a','#c0302c','#2f7a4a','#e0b030','#7a4a9a'];
-const mk=()=>({scene:'street',t:0,money:0,dm:0,sales:0,fame:0,rep:3,served:0,ups:{},cust:[],floats:[],spawnT:1,nid:1,serving:null,bowl:[],
+const mk=()=>({scene:'street',t:0,money:0,dm:0,sales:0,fame:0,rep:3,served:0,ups:{},ti:{},cust:[],floats:[],spawnT:1,nid:1,serving:null,bowl:[],
 cam:{z:1,x:160,y:100},camT:{z:1,x:160,y:100},demo:null,res:null,banner:null,lvShown:1,fade:1,paused:false,hover:false,ripples:[],cu:0,cdip:0,bowlT:[],noodleT:0,
 rain:Array.from({length:110},()=>({x:rnd()*W,y:rnd()*H,s:90+rnd()*80}))});
 let G=mk();
@@ -252,10 +259,11 @@ function unpick(i){G.bowl.splice(i,1);G.bowlT.splice(i,1)}
 function cancel(){G.serving=null;G.bowl=[];G.cook=null;G.noodle=null;zoomOut()}
 function startCook(){if(G.serving&&!G.cook&&!G.noodle)G.cook={t:0}}
 function takeNoodle(){if(!G.cook)return;const p=G.cook.t/4,z=G.zs;G.noodle=p>=z&&p<=z+.22?'perfect':p>=z-.12&&p<=z+.38?'ok':'bad';G.acc=Math.max(0,1-Math.abs(p-(z+.11))/.4);G.stopP=Math.min(1,p);G.noodleT=G.t;G.cook=null}
+function buyTop(id){const t=(G.ti[id]||0)+1;if(t>2||lvl()<IT[id].lv)return;const c=tcost(id,t);if(G.money<c)return;G.money-=c;G.ti[id]=t}
 function buy(id){const u=UPS.find(x=>x.id===id);if(G.ups[id]||G.money<u.cost||lvl()<u.lv||(u.req&&!G.ups[u.req]))return;G.money-=u.cost;G.ups[id]=1}
 function checkLv(){const l=lvl();if(l>G.lvShown){G.lvShown=l;const nw=ITEMS.filter(i=>i.lv===l).map(i=>i.n).join('、');G.banner={t:0,tx:'店舖升級 Lv'+l+'!'+(nw?' 新菜單:'+nw:'')}}}
 function serve(){const c=G.serving;if(!c||!G.noodle)return;const need=[...c.order];let m=0,ex=0,val=0;
-G.bowl.forEach(b=>{const i=need.indexOf(b);if(i>=0){need.splice(i,1);m++;val+=IT[b].p}else ex++});
+G.bowl.forEach(b=>{const i=need.indexOf(b);if(i>=0){need.splice(i,1);m++;val+=Math.round(IT[b].p*TM[G.ti[b]||0])}else ex++});
 const r=Math.max(0,c.pat/c.max),q=G.noodle,full=m===c.order.length&&ex===0;
 const exact=full&&G.bowl.length===c.order.length&&G.bowl.every((b,i)=>b===c.order[i]);
 const tier=(m===0||q==='bad')?0:(exact&&(G.acc||0)>=.9)?3:(full&&r>.5)?2:1;
@@ -266,16 +274,21 @@ c.state='eat';c.eatT=G.ups.fast?2.2:3.5;
 G.res={key:G.nid++,sat,rev,t:0,note:sat>=100?'非常完美':sat>=90?'完美':sat>=60?'普通':'差強人意'};
 G.floats.push({x:c.x-12,y:c.y-36,t:0,tx:'+¥'+rev,c:'#ffd24a'},{x:c.x-12,y:c.y-46,t:0,tx:G.res.note,c:sat>=100?'#ffd24a':sat>=90?'#8fe068':sat>=60?'#ffffff':'#ff9a7a'});
 G.serving=null;G.bowl=[];G.noodle=null;G.cook=null;zoomOut();checkLv()}
-function leave(c){c.state='leave';c.wp=[[c.x,WY],[345,WY]]}
-function spawn(){const s=SO.slice(0,seatN()).find(i=>!G.cust.some(c=>c.seat===i&&c.state!=='leave'));if(s==null)return;
-const u=unl(),L=lvl(),n=L>=10?1+(rnd()*5|0):L>=7?1+(rnd()*4|0):1+(rnd()<.5?1:0)+(L>=3&&rnd()<.4?1:0),max=30*(G.ups.warm?1.25:1)*(G.ups.ac?1.2:1)*(1+(G.rep-3)*.05);
-G.cust.push({id:G.nid++,x:-12,y:WY,seat:s,state:'walk',wp:[[SX[s],WY],[SX[s],SY]],t:rnd()*3,hair:HAIR[rnd()*5|0],shirt:SHIRT[rnd()*5|0],
-order:(n>=4?u.map(i=>i.id).sort(()=>rnd()-.5).slice(0,n):Array.from({length:n},()=>u[rnd()*u.length|0].id)),pat:max,max})}
+function leave(c){c.state='leave';c.wp=[[c.x,WY],[-24,WY]]}
+function spawn(){const s=Array.from({length:seatN()},(_,i)=>i).find(i=>!G.cust.some(c=>c.seat===i&&c.state!=='leave'));if(s==null)return;
+const u=unl(),L=lvl(),n=G.demo?2+(rnd()*2|0):L>=10?1+(rnd()*5|0):L>=7?1+(rnd()*4|0):1+(rnd()<.5?1:0)+(L>=3&&rnd()<.4?1:0),max=30*(G.ups.warm?1.25:1)*(G.ups.ac?1.2:1)*(1+(G.rep-3)*.05);
+G.cust.push({id:G.nid++,x:-12,y:WY,seat:s,state:'walk',wp:[[SXf(s),WY],[SXf(s),SY]],t:rnd()*3,hair:HAIR[rnd()*5|0],shirt:SHIRT[rnd()*5|0],
+order:(n>=4?u.map(i=>i.id).sort(()=>rnd()-.5).slice(0,n):Array.from({length:n},()=>u[rnd()*u.length|0].id)),pat:G.demo?16:max,max:G.demo?16:max})}
 function bot(dt){const d=G.demo;d.bt=(d.bt||0)-dt;
-if(d.t>10&&!G.ups.warm&&G.money>=150)buy('warm');
+if(d.t>6&&!d.sd&&!G.serving){d.sd=1;d.sh=d.t;G.demoShop=1}
+if(G.demoShop){const e=d.t-d.sh;G.demoFocus=e<2.9?'tp-eg':e<4.3?'up-warm':'up-seat1';if(e>1.1&&!G.ti.eg)buyTop('eg');if(e>2.1&&G.ti.eg<2)buyTop('eg');if(e>3.7&&!G.ups.warm)buy('warm');if(e>4.9&&!G.ups.seat1)buy('seat1');if(e>6){G.demoShop=0;G.demoFocus=null}return}
 if(d.bt>0)return;
-if(!G.serving){const c=G.cust.find(c=>c.state==='wait');if(c){openServe(c);d.bt=1}}
-else{const c=G.serving;if(!G.noodle){if(!G.cook){startCook();d.bt=.2}else if(G.cook.t>=(G.zs+.11)*4){takeNoodle();d.bt=.4}else d.bt=.05}else if(G.bowl.length<c.order.length){const need=[...c.order];G.bowl.forEach(b=>need.splice(need.indexOf(b),1));pick(need[0]);d.bt=.5}else{serve();d.bt=.8}}}
+if(!G.serving){if(d.t>19)return;const w=G.cust.filter(c=>c.state==='wait');let c=w[0];if((d.k||0)===2){c=w.sort((a,b)=>a.pat/a.max-b.pat/b.max)[0];}if(c){openServe(c);d.bt=.8}return}
+const c=G.serving,md=(d.k||0)%2?2:0; /* 0 非常完美  2 做錯(煮壞+放錯料) */
+if(!G.noodle){if(!G.cook){startCook();d.bt=.2}else{const tg=md===2?Math.max(.3,(G.zs-.2)*4):(G.zs+.11)*4;if(G.cook.t>=tg){takeNoodle();d.bt=.7}else d.bt=.03}return}
+const wrong=ITEMS.find(x=>x.lv<=lvl()&&!c.order.includes(x.id)).id;
+const tl=md===0?c.order:md===1?c.order.slice(0,-1):[wrong,...c.order.slice(0,-1)];
+if(G.bowl.length<tl.length){pick(tl[G.bowl.length]);d.bt=.35}else{serve();d.k=(d.k||0)+1;d.bt=.9}}
 function update(dt){
 G.t+=dt;G.cu+=((G.serving?1:0)-G.cu)*Math.min(1,dt*8);G.cdip+=((G.cook?1:0)-G.cdip)*Math.min(1,dt*6);
 if(G.serving){G.vN=G.noodle;G.vB=G.bowl.slice();G.vT=G.bowlT.slice();G.vCk=G.cook?G.cook.t:0}
@@ -287,16 +300,16 @@ G.floats.forEach(f=>{f.t+=dt;f.y-=10*dt});G.floats=G.floats.filter(f=>f.t<1.6);
 const k=1-Math.pow(.001,dt),a=G.cam,b=G.camT;a.z+=(b.z-a.z)*k;a.x+=(b.x-a.x)*k;a.y+=(b.y-a.y)*k;
 if(G.res)G.res.t+=dt;if(G.banner)G.banner.t+=dt;
 if(G.scene!=='shop'||G.paused)return;
-if(G.demo){G.demo.t+=dt;if(G.demo.t>=30){G=mk();return}bot(dt)}
+if(G.demo){G.demo.t+=dt;if(G.demo.t>=25){G=mk();return}bot(dt)}
 if(G.cook){G.cook.t+=dt;if(G.cook.t>5)takeNoodle()}
 G.spawnT-=dt;
 if(G.spawnT<=0){G.spawnT=(G.demo?2.2:Math.max(3,7-G.fame*.03-lvl()*.4))*(.8+rnd()*.4)*(G.ups.sign?.8:1);spawn()}
 G.cust.forEach(c=>{c.t+=dt;
 if(c.state==='walk'||c.state==='leave'){const w=c.wp[0];if(!w){if(c.state==='walk')c.state='wait';else c.dead=1;return}
 const dx=w[0]-c.x,dy=w[1]-c.y,d=Math.hypot(dx,dy),sp=42*dt;if(d<=sp){c.x=w[0];c.y=w[1];c.wp.shift()}else{c.x+=dx/d*sp;c.y+=dy/d*sp}}
-else if(c.state==='wait'){c.pat-=dt;if(c.pat<=0){G.rep=Math.max(1,G.rep-.3);G.fame=Math.max(0,G.fame-1);
+else if(c.state==='wait'){const sx=SXf(c.seat);if(Math.abs(sx-c.x)>.5)c.x+=Math.sign(sx-c.x)*Math.min(Math.abs(sx-c.x),50*dt);if(!G.demoShop)c.pat-=dt;if(c.pat<=0){G.rep=Math.max(1,G.rep-.3);G.fame=Math.max(0,G.fame-1);
 G.floats.push({x:c.x,y:c.y-32,t:0,tx:'怒!',c:'#ff5040'});if(G.serving===c)cancel();leave(c)}}
-else if(c.state==='eat'){c.eatT-=dt;if(c.eatT<=0)leave(c)}});
+else if(c.state==='eat'){const sx=SXf(c.seat);if(Math.abs(sx-c.x)>.5)c.x+=Math.sign(sx-c.x)*Math.min(Math.abs(sx-c.x),50*dt);c.eatT-=dt;if(c.eatT<=0)leave(c)}});
 G.cust=G.cust.filter(c=>!c.dead)}
 let ctx;const R=(x,y,w,h,c)=>{if(w<=0||h<=0)return;const x0=Math.round(x),y0=Math.round(y),x1=Math.round(x+w),y1=Math.round(y+h);ctx.fillStyle=c;ctx.fillRect(x0,y0,Math.max(1,x1-x0),Math.max(1,y1-y0))};
 let chefPix=null;function getChef(){if(chefPix||!(chefImg.complete&&chefImg.naturalWidth))return chefPix;chefPix={c:chefImg,w:chefImg.naturalWidth,h:chefImg.naturalHeight};return chefPix}
@@ -370,7 +383,7 @@ R(0,CT+26,W,6,'#b8742f');R(0,CT+26,W,2,'#e0a85a');R(0,CT+32,W,H+40,'#6b3a1c');fo
 R(14,CT-12,14,12,'#2a2a30');R(14,CT-12,14,2,'#5a5a64');for(let i=0;i<4;i++)R(16+i*3,CT-20,2,9,'#e8c070');
 R(34,CT-12,6,12,'#a03020');R(35,CT-16,4,4,'#222');R(44,CT-9,6,9,'#d9a030');R(45,CT-12,4,3,'#f6e7c8');R(54,CT-8,5,8,'#7a3a2a');R(55,CT-11,3,3,'#e8452a');
 bowls(278,CT-1,2);R(300,CT-6,10,6,'#e8c070');
-ctx.restore();SO.slice(0,seatN()).forEach(i=>{const x=SX[i];R(x-10,ST-1,20,8,'#2a1a14');R(x-9,ST,18,6,'#d93a35');R(x-9,ST,18,2,'#f0504a');R(x-9,ST+4,18,2,'#8f1f1c');R(x-7,ST+7,4,19,'#2a1a14');R(x+3,ST+7,4,19,'#2a1a14');R(x-6,ST+7,2,19,'#8a5226');R(x+4,ST+7,2,19,'#8a5226');R(x-6,ST+7,1,19,'#b8743c');R(x+4,ST+7,1,19,'#b8743c');R(x-7,ST+16,14,2,'#2a1a14')});
+ctx.restore();Array.from({length:seatN()},(_,i)=>i).forEach(i=>{const x=SXf(i);R(x-10,ST-1,20,8,'#2a1a14');R(x-9,ST,18,6,'#d93a35');R(x-9,ST,18,2,'#f0504a');R(x-9,ST+4,18,2,'#8f1f1c');R(x-7,ST+7,4,19,'#2a1a14');R(x+3,ST+7,4,19,'#2a1a14');R(x-6,ST+7,2,19,'#8a5226');R(x+4,ST+7,2,19,'#8a5226');R(x-6,ST+7,1,19,'#b8743c');R(x+4,ST+7,1,19,'#b8743c');R(x-7,ST+16,14,2,'#2a1a14')});
 G.cust.slice().sort((a,b)=>a.y-b.y).forEach(drawC);
 ctx.font='9px DotGothic16,monospace';G.floats.forEach(f=>{ctx.globalAlpha=Math.min(1,2-f.t*1.2);ctx.fillStyle='#000';ctx.fillText(f.tx,f.x+1,f.y+1);ctx.fillStyle=f.c;ctx.fillText(f.tx,f.x,f.y)});ctx.globalAlpha=1;
 R(0,0,W,3,'#0006');R(0,H-3,W,3,'#0006')}
@@ -381,13 +394,13 @@ ctx.restore();
 if(G.scene==='shop'&&G.cu>.01){ctx.globalAlpha=Math.min(1,G.cu);ctx.imageSmoothingEnabled=false;drawCU({t:G.t,noodle:G.vN||null,cookT:G.vCk||0,cdip:G.cdip,bowl:G.vB||[],bowlT:G.vT||[],nAge:G.t-G.noodleT});ctx.drawImage(CU,0,0,W,H);ctx.globalAlpha=1}
 if(G.fade>0){ctx.globalAlpha=G.fade;R(0,0,W,H,'#000');ctx.globalAlpha=1}}
 function snap(){const s=G.serving;return{scene:G.scene,money:Math.round(G.dm),rep:G.rep,fame:Math.floor(G.fame),lv:lvl(),prog:prog(),order:s?s.order.slice():null,pf:s?s.pat/s.max:0,
-bowl:G.bowl.slice(),ups:{...G.ups},demo:G.demo?Math.max(0,30-Math.floor(G.demo.t)):null,res:G.res&&G.res.t<2.4?G.res:null,banner:G.banner&&G.banner.t<3.5?G.banner.tx:null,wait:G.cust.some(c=>c.state==='wait'),zs:G.zs,cook:G.cook?G.cook.t/4:null,noodle:G.noodle,sp:G.stopP||0,acc:G.acc||0}}
-const TUT=[['歡迎來到潔諾拉麵食堂','你是拉麵店的店員!接待客人、煮出好吃的拉麵,賺錢讓小店升級。'],['① 接待客人','客人坐下後,頭上會出現點單泡泡。點一下等待中的客人,就能開始做他的拉麵。客人的耐心條見底會生氣離開。'],['② 煮麵','按「下鍋」開始煮麵。當進度條走進綠色框框時,立刻按「起鍋」。煮得越準,麵越好吃。'],['③ 放配料','選擇和點單一樣的配料放進碗裡。放錯或多放會扣分。'],['④ 上菜','按「上菜」把拉麵端給客人。賺到的錢會顯示在客人頭上。'],['⑤ 店鋪成長','口碑和人氣會讓店鋪升級,解鎖新配料,也可以用賺來的錢購買設備。'],['⑥ 存檔','按畫面上方的「保存紀錄」就能存檔。存檔是放在瀏覽器裡,換瀏覽器或清除網站資料後就會不見。如果用無痕視窗開,關掉視窗也會消失!準備好就開店吧!']];
+bowl:G.bowl.slice(),ups:{...G.ups},ti:{...G.ti},mr:G.money,dshop:!!G.demoShop,dfocus:G.demoFocus||null,demo:G.demo?Math.max(0,25-Math.floor(G.demo.t)):null,res:G.res&&G.res.t<2.4?G.res:null,banner:G.banner&&G.banner.t<3.5?G.banner.tx:null,wait:G.cust.some(c=>c.state==='wait'),zs:G.zs,cook:G.cook?G.cook.t/4:null,noodle:G.noodle,sp:G.stopP||0,acc:G.acc||0}}
+const TUT=[['歡迎來到潔諾拉麵食堂','你是拉麵店的店員!接待客人、煮出好吃的拉麵,賺錢讓小店升級。'],['① 接待客人','客人坐下後,頭上會出現點單泡泡。點一下等待中的客人,就能開始做他的拉麵。客人的耐心條見底會生氣離開。'],['② 煮麵','按「下鍋」開始煮麵。當進度條走進綠色框框時,立刻按「起鍋」。煮得越準,麵越好吃。'],['③ 放配料','選擇和點單一樣的配料放進碗裡。放錯或多放會扣分。'],['④ 上菜','按「上菜」把拉麵端給客人。賺到的錢會顯示在客人頭上。'],['⑤ 店鋪成長','口碑和人氣會讓店鋪升級,解鎖新配料,也可以用賺來的錢購買設備。'],['⑥ 存檔','按畫面上的「存檔」就能儲存進度(暫停時也能存檔)。存檔是放在瀏覽器裡,換瀏覽器或清除網站資料後就會不見。如果用無痕視窗開,關掉視窗也會消失!準備好就開店吧!']];
 const SKEY='jnr_saves_v1';let MEM=[null,null,null];
 const getSaves=()=>{try{const v=JSON.parse(localStorage.getItem(SKEY));if(Array.isArray(v))return[0,1,2].map(i=>v[i]||null)}catch(e){}return MEM.slice()};
 const putSaves=a=>{MEM=a.slice();try{localStorage.setItem(SKEY,JSON.stringify(a))}catch(e){}};
-const saveGame=i=>{const a=getSaves();a[i]={money:G.money,sales:G.sales,fame:G.fame,rep:G.rep,served:G.served,ups:G.ups,lvShown:G.lvShown,lv:lvl(),at:Date.now()};putSaves(a);return a};
-const loadGame=i=>{const d=getSaves()[i];if(!d)return;G=mk();Object.assign(G,{money:d.money,dm:d.money,sales:d.sales,fame:d.fame,rep:d.rep,served:d.served,ups:d.ups||{},lvShown:d.lvShown||1});G.scene='shop';G.fade=1};
+const saveGame=i=>{const a=getSaves();a[i]={money:G.money,sales:G.sales,fame:G.fame,rep:G.rep,served:G.served,ups:G.ups,ti:G.ti,lvShown:G.lvShown,lv:lvl(),at:Date.now()};putSaves(a);return a};
+const loadGame=i=>{const d=getSaves()[i];if(!d)return;G=mk();Object.assign(G,{money:d.money,dm:d.money,sales:d.sales,fame:d.fame,rep:d.rep,served:d.served,ups:d.ups||{},ti:Object.fromEntries(Object.entries(d.ti||{}).map(([k,v])=>[k,Math.min(2,Math.max(0,v-(v>2?1:0)))])),lvShown:d.lvShown||1});G.scene='shop';G.fade=1};
 const newGame=()=>{G=mk();G.scene='shop';G.fade=1};
 function goFull(open){const e=document.documentElement,f=e.requestFullscreen||e.webkitRequestFullscreen;const fb=()=>{if(open&&window.top!==window.self&&/^https?:/.test(location.href))window.open(location.href,'_blank')};
 if(!f)return fb();try{const r=f.call(e),ok=()=>{};if(r&&r.then)r.then(ok,fb);else ok()}catch(x){fb()}}
@@ -396,6 +409,7 @@ const Ico=({id})=>h('img',{className:'ico',src:ICON[id],draggable:false,alt:IT[i
 function App(){
 const[view,setView]=useState(()=>document.documentElement.classList.contains('lp')?'p':'l'),[s,setS]=useState(snap()),[open,setOpen]=useState(false),[tut,setTut]=useState(null),[sv,setSv]=useState(null),[saves,setSaves]=useState(()=>getSaves()),[pz,setPz]=useState(false),cv=useRef();
 useEffect(()=>{G.paused=open||pz||sv!=null},[open,pz,sv]);
+useEffect(()=>{if(!s.dfocus)return;const el=document.getElementById(s.dfocus);if(el&&el.scrollIntoView)try{el.scrollIntoView({behavior:'smooth',block:'center'})}catch(e){el.scrollIntoView()}},[s.dfocus]);
 useEffect(()=>{const k=e=>{if((e.key==='p'||e.key==='Escape')&&G.scene==='shop')setPz(v=>!v)};addEventListener('keydown',k);return()=>removeEventListener('keydown',k)},[]);
 useEffect(()=>{ctx=cv.current.getContext('2d');let last=performance.now(),raf;
 const loop=n=>{const dt=Math.min(.05,(n-last)/1000);last=n;update(dt);draw();raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop);
@@ -414,17 +428,17 @@ s.scene==='street'&&h('div',{className:'ov',style:{inset:0,background:'#f8dba9'}
 h('img',{src:COVER,style:{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover',pointerEvents:'none'}}),
 h('div',{className:'tcol',style:{position:'absolute',left:'5%',top:0,bottom:0,display:'flex',flexDirection:'column',alignItems:'flex-start',justifyContent:'center',gap:'1.2em',pointerEvents:'none'}},
 h('div',{className:'tt2',style:{marginTop:0,lineHeight:1.15}},...[...'潔諾'].map((ch,i)=>h('span',{key:'a'+i,className:'ch',style:{animationDelay:(i*.15)+'s'}},ch)),h('br'),...[...'拉麵食堂'].map((ch,i)=>h('span',{key:'b'+i,className:'ch',style:{animationDelay:(.3+i*.15)+'s'}},ch))),
-h('div',{className:'tbtn',style:{display:'flex',flexDirection:'column',gap:'.8em',alignItems:'flex-start'}},h('button',{className:'btn big',onClick:()=>{if(view==='l'&&document.documentElement.classList.contains('sm'))goFull();setPz(false);setTut(0)}},'開始遊戲'),saves.some(Boolean)&&h('button',{className:'btn big',onClick:()=>{setSaves(getSaves());setSv('load')}},'繼續遊戲'),h('button',{className:'btn g',onClick:()=>{G=mk();G.demo={t:0};G.scene='shop'}},'▶ 演示模式'),h('button',{className:'btn g vtog',onClick:tgView},view==='p'?'切換橫式':'切換直式')))),
-s.scene==='shop'&&!s.order&&h('div',{className:'ov',style:{top:'2%',left:'1.5%'}},h('div',{className:'bx'},h('div',{style:{color:'#ffd24a',fontSize:'1.5em'}},'¥ '+s.money),h('div',{style:{color:'#ff7a9a'}},'口碑 '+'★'.repeat(star)+'☆'.repeat(5-star)),h('div',{style:{color:'#ff9ab0'}},'人氣 ♥ '+s.fame))),
+h('div',{className:'tbtn',style:{display:'flex',flexDirection:'column',gap:'.8em',alignItems:'flex-start'}},h('button',{className:'btn big',onClick:()=>{if(view==='l'&&document.documentElement.classList.contains('sm'))goFull();setPz(false);setTut(0)}},'開始遊戲'),saves.some(Boolean)&&h('button',{className:'btn big',onClick:()=>{setSaves(getSaves());setSv('load')}},'繼續遊戲'),h('button',{className:'btn g',onClick:()=>{G=mk();G.demo={t:0,k:0};G.fame=thr(10);G.lvShown=10;G.money=5000;G.dm=5000;G.spawnT=.1;G.scene='shop'}},'▶ 演示模式'),h('button',{className:'btn g vtog',onClick:tgView},view==='p'?'切換橫式':'切換直式')))),
+s.scene==='shop'&&!s.order&&h('div',{className:'ov',style:{top:'2%',left:'1.5%'}},h('div',{className:'bx mny'},h('div',{style:{color:'#ffd24a',fontSize:'1.5em'}},'¥ '+s.money),h('div',{style:{color:'#ff7a9a'}},'口碑 '+'★'.repeat(star)+'☆'.repeat(5-star)),h('div',{style:{color:'#ff9ab0'}},'人氣 ♥ '+s.fame))),
 s.scene==='shop'&&h('div',{className:'ov hudr',style:{top:'2%',right:'1.5%',alignItems:'flex-start'}},
 h('div',{className:'bx lvbx'},'店舖等級 Lv'+s.lv,h('div',{className:'bar'},h('i',{style:{width:Math.min(100,s.prog*100)+'%'}}))),
-h('button',{className:'btn',onClick:()=>setPz(true)},'暫停'),!s.demo&&h('button',{className:'btn g',onClick:()=>setOpen(true)},'店舖設備'),h('div',{className:'brk'}),h('button',{className:'btn g vtog',onClick:tgView},view==='p'?'切換橫式':'切換直式'),!s.demo&&!s.order&&h('button',{className:'btn g tsave',onClick:()=>{setSaves(getSaves());setSv('save')}},'保存紀錄'),
+!s.demo&&h('button',{className:'btn',onClick:()=>setPz(true)},'暫停'),h('button',{className:'btn g',style:s.demo?{pointerEvents:'none',filter:s.dshop?'brightness(1.4)':'none'}:null,onClick:()=>setOpen(true)},'店舖設備'),!s.demo&&h('div',{className:'brk'}),!s.demo&&h('button',{className:'btn g vtog',onClick:tgView},view==='p'?'切換橫式':'切換直式'),!s.demo&&!s.order&&h('button',{className:'btn g tsave',onClick:()=>{setSaves(getSaves());setSv('save')}},'存檔'),
 !s.demo&&!s.order&&h('button',{className:'btn tleave',onClick:()=>{if(G.serving)cancel();setScene('street')}},'離開')),
-s.demo!=null&&h('div',{className:'ov hint dm',style:s.order?{top:'1%',left:0,right:0,justifyContent:'center',zIndex:5}:{bottom:'3%',left:0,right:0,justifyContent:'center'}},h('div',{className:'bx blink'},'DEMO 自動演示中 · '+s.demo+'s'),h('button',{className:'btn',onClick:()=>{G=mk()}},'退出')),
+s.demo!=null&&!s.dshop&&h('div',{className:'ov hint dm',style:s.order?{top:'1%',left:0,right:0,justifyContent:'center',zIndex:5}:{bottom:'3%',left:0,right:0,justifyContent:'center'}},h('div',{className:'bx blink'},'DEMO 自動演示中 · '+s.demo+'s'),h('button',{className:'btn tb',onClick:()=>{G=mk()}},'退出')),
 s.scene==='shop'&&!s.order&&!s.demo&&h('div',{className:'ov hint',style:{bottom:'3%',left:0,right:0,justifyContent:'center'}},h('div',{className:'bx blink'},'點擊等待中的客人開始點餐')),
 s.order&&h('div',{className:'ov bx sv',style:{bottom:'2%',left:'50%',transform:'translateX(-50%)',flexDirection:'column',alignItems:'center',width:'78%'}},
 h('div',{style:{display:'flex',gap:'.6em',alignItems:'center'}},'點單:',h('div',{style:{display:'flex',gap:'.4em',flexWrap:'nowrap'}},s.order.map((o,i)=>h(Ico,{key:i,id:o}))),h('div',{className:'bar'},h('i',{style:{width:Math.max(0,s.pf*100)+'%',background:s.pf>.4?'#5fd35f':'#e8452a'}}))),
-h('div',{className:'crow',style:{display:'flex',gap:'.6em',alignItems:'center'}},!s.noodle&&h('span',{style:{color:'#ffd24a'}},'① 煮麵:'),s.noodle?h('div',{style:{width:'16em',textAlign:'center',color:s.noodle==='bad'?'#ff9a7a':'#8fe068'}},(s.noodle==='perfect'?'完美彈牙!':s.noodle==='ok'?'還可以':'煮壞了…')):h('div',{className:'bar',style:{width:'16em',position:'relative'}},h('i',{style:{width:Math.min(100,(s.cook||0)*100)+'%',background:'#e8c070'}}),h('b',{style:{position:'absolute',left:(s.zs*100)+'%',top:0,bottom:0,width:'22%',border:'2px solid #5fd35f',pointerEvents:'none'}})),
+h('div',{className:'crow',style:{display:'flex',gap:'.6em',alignItems:'center'}},!s.noodle&&h('span',{style:{color:'#ffd24a'}},'① 煮麵:'),s.noodle?h('div',{className:'rsl',style:{textAlign:'center',color:s.noodle==='bad'?'#ff9a7a':'#8fe068'}},(s.noodle==='perfect'?'完美彈牙!':s.noodle==='ok'?'還可以':'煮壞了…')):h('div',{className:'bar',style:{width:'16em',position:'relative'}},h('i',{style:{width:Math.min(100,(s.cook||0)*100)+'%',background:'#e8c070'}}),h('b',{style:{position:'absolute',left:(s.zs*100)+'%',top:0,bottom:0,width:'22%',border:'2px solid #5fd35f',pointerEvents:'none'}})),
 s.noodle?h('span',{className:'btn st2',style:{background:'transparent',borderColor:'transparent',boxShadow:'none',color:'#ffd24a',pointerEvents:'none',textAlign:'center',minWidth:'5.5em'}},'② 放配料'):s.cook==null?h('button',{className:'btn',onClick:startCook},'下鍋'):h('button',{className:'btn g',onClick:takeNoodle},'起鍋!'),!s.noodle&&h('span',{className:'btn st2 ph','aria-hidden':true},'② 放配料')),
 h('div',{className:'ings',style:{display:'flex',gap:'.4em',flexWrap:'nowrap',justifyContent:'center',opacity:s.noodle?1:.35,pointerEvents:s.noodle?'auto':'none'}},un.map(id=>h('button',{key:id,className:'it',disabled:!s.noodle,onClick:()=>pick(id)},h(Ico,{id}),IT[id].n))),
 h('div',{style:{display:'flex',gap:'.4em',alignItems:'center'}},'碗:',[0,1,2,3,4].map(i=>h('div',{key:i,className:'slot',title:s.bowl[i]?'點一下拿起來':'',style:s.bowl[i]?{cursor:'pointer',borderStyle:'solid',borderColor:'#ffd24a'}:null,onClick:()=>{if(s.bowl[i])unpick(i)}},s.bowl[i]&&h(Ico,{id:s.bowl[i]}))),
@@ -435,18 +449,17 @@ h('div',{style:{fontSize:'1.6em',color:'#ffd24a'}},TUT[tut][0]),h('div',{style:{
 h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center'}},h('div',null,TUT.map((_,i)=>h('i',{key:i,className:'tdot'+(i===tut?' on':'')}))),
 h('div',{style:{display:'flex',gap:'.5em'}},tut>0&&h('button',{className:'btn tb',onClick:()=>setTut(tut-1)},'上一頁'),tut<TUT.length-1?h('button',{className:'btn g tb',onClick:()=>setTut(tut+1)},'下一頁'):h('button',{className:'btn g tb',onClick:()=>{setTut(null);newGame()}},'開始營業'))))),
 sv&&h('div',{className:'ov',style:{inset:0,background:'#000c',alignItems:'center',justifyContent:'center',zIndex:20}},h('div',{className:'bx',style:{width:'60%',borderColor:'#ffd24a',display:'flex',flexDirection:'column',gap:'.6em',padding:'1em 1.4em'}},
-h('div',{style:{fontSize:'1.5em',color:'#ffd24a'}},sv==='save'?'保存紀錄':'繼續遊戲'),
+h('div',{style:{fontSize:'1.5em',color:'#ffd24a'}},sv==='save'?'存檔':'繼續遊戲'),
 [0,1,2].map(i=>{const d=saves[i];return h('div',{key:i,style:{display:'flex',alignItems:'center',justifyContent:'space-between',gap:'1em',padding:'.5em',border:'3px solid #8a4f24',background:'#3a1c10'}},
 h('span',null,'紀錄 '+(i+1)+' — '+(d?'¥'+d.money+' · Lv'+d.lv+' · '+fmtT(d.at):'(空)')),
-sv==='save'?h('button',{className:'btn g',onClick:()=>{setSaves(saveGame(i))}},d?'覆蓋':'保存'):h('button',{className:'btn g',disabled:!d,onClick:()=>{loadGame(i);setSv(null)}},'讀取'))}),
+sv==='save'?h('button',{className:'btn g',onClick:()=>{setSaves(saveGame(i))}},d?'覆蓋':'存檔'):h('button',{className:'btn g',disabled:!d,onClick:()=>{loadGame(i);setSv(null)}},'讀取'))}),
 h('div',{style:{textAlign:'right'}},h('button',{className:'btn',onClick:()=>setSv(null)},'關閉')))),
-pz&&h('div',{className:'ov',style:{inset:0,background:'#000b',alignItems:'center',justifyContent:'center',flexDirection:'column'}},h('div',{className:'res'},'暫停中'),h('button',{className:'btn big',onClick:()=>setPz(false)},'繼續')),
-open&&h('div',{className:'ov',style:{inset:0,background:'#000a',alignItems:'center',justifyContent:'center'}},h('div',{className:'bx',style:{width:'70%',maxHeight:'92%',overflow:'auto',borderColor:'#d93a35'}},
-h('div',{style:{fontSize:'1.4em',marginBottom:'.4em'}},'菜單 (Lv'+s.lv+')'),
-h('div',{style:{display:'flex',gap:'.4em',flexWrap:'wrap'}},ITEMS.map(i=>h('div',{key:i.id,style:{opacity:i.lv<=s.lv?1:.35,textAlign:'center',border:'3px solid #8a4f24',background:'#3a1c10',padding:'.3em .5em'}},h(Ico,{id:i.id}),h('div',null,i.lv<=s.lv?i.n+' ¥'+i.p:'Lv'+i.lv+'解鎖')))),
+pz&&h('div',{className:'ov',style:{inset:0,background:'#000b',alignItems:'center',justifyContent:'center',flexDirection:'column'}},h('div',{className:'res'},'暫停中'),h('button',{className:'btn big',onClick:()=>setPz(false)},'繼續'),h('button',{className:'btn g',style:{marginTop:'.6em'},onClick:()=>{setSaves(getSaves());setSv('save')}},'存檔')),
+(open||s.dshop)&&h('div',{className:'ov',style:{inset:0,background:'#000a',alignItems:'center',justifyContent:'center'}},h('div',{className:'bx shopm',style:{width:'70%',maxHeight:'92%',overflow:'auto',borderColor:'#d93a35',display:'block'}},
+h('div',{style:{position:'sticky',top:'-.4em',zIndex:2,background:'#241410',display:'flex',justifyContent:'space-between',alignItems:'center',margin:'-.4em -.8em .4em',padding:'.4em .8em'}},h('div',{style:{fontSize:'1.4em'}},'菜單'),h('button',{className:'btn',onClick:()=>setOpen(false)},'關閉')),
+h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'.5em'}},ITEMS.map(i=>{const lock=i.lv>s.lv,t=s.ti[i.id]||0;return h('div',{key:i.id,id:'tp-'+i.id,className:'tpc',style:{padding:'.4em',border:'3px solid #8a4f24',background:'#3a1c10',opacity:lock?.4:1}},h(Ico,{id:i.id}),h('div',{style:{flex:1,minWidth:0}},h('div',null,i.n),h('div',{style:{color:TC[t],fontSize:'.85em'}},TN[t]+' ¥'+Math.round(i.p*TM[t])),h('div',{style:{display:'flex',gap:'.2em',marginTop:'.25em'}},[1,2,3].map(q=>h('i',{key:q,style:{flex:1,height:'.6em',border:'2px solid #f2b84b',background:t+1>=q?'#ffd24a':'#000'}})))),lock?h('span',{className:'act',style:{fontSize:'.8em'}},'Lv'+i.lv+'解鎖'):t>=2?h('span',{className:'act',style:{color:TC[2]}},'滿級'):h('button',{className:'btn tb act',disabled:s.mr<tcost(i.id,t+1),onClick:()=>buyTop(i.id)},'升級 ¥'+tcost(i.id,t+1)))})),
 h('div',{style:{fontSize:'1.4em',margin:'.6em 0 .3em'}},'設備'),
-h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'.5em'}},UPS.map(u=>{const own=s.ups[u.id],lock=s.lv<u.lv||(u.req&&!s.ups[u.req]);return h('div',{key:u.id,style:{display:'flex',flexDirection:'column',gap:'.4em',padding:'.5em',border:'3px solid #8a4f24',background:'#3a1c10'}},
-h('span',null,u.n+' — '+u.d+(lock?'  (Lv'+u.lv+(u.req?' / 需先購前置':'')+')':'')),h('button',{className:'btn',disabled:own||lock||s.money<u.cost,onClick:()=>buy(u.id)},own?'已購':'¥'+u.cost))})),
-h('div',{style:{textAlign:'right',marginTop:'.5em'}},h('button',{className:'btn g',onClick:()=>setOpen(false)},'關閉')))))}
+h('div',{className:'upg',style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'.5em'}},UPS.map(u=>{const own=s.ups[u.id],lock=s.lv<u.lv||(u.req&&!s.ups[u.req]);return h('div',{key:u.id,id:'up-'+u.id,style:{display:'flex',flexDirection:'column',gap:'.4em',padding:'.5em',border:'3px solid #8a4f24',background:'#3a1c10'}},
+h('span',null,u.n+' — '+u.d+(lock?'  (Lv'+u.lv+(u.req?' / 需先購前置':'')+')':'')),h('button',{className:own?'btn bought':'btn',disabled:own||lock||s.mr<u.cost,onClick:()=>buy(u.id)},own?'已購買':'¥'+u.cost))})))))}
 ReactDOM.createRoot(document.getElementById('root')).render(h(App));
-</script><script>if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{})</script></body></html>
+</script><script>document.addEventListener('touchstart',function(){},{passive:true});document.addEventListener('pointerdown',function(e){var b=e.target.closest&&e.target.closest('.btn,.it');if(b&&!b.disabled){b.classList.add('pr');setTimeout(function(){b.classList.remove('pr')},240)}},true)</script><script>if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{})</script></body></html>
