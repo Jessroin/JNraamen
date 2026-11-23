@@ -387,7 +387,7 @@ R(254,60,62,CT-60,'#4a2810');R(254,60,5,CT-60,'#6b3a1c');R(311,60,5,CT-60,'#6b3a
 shelf(259,80,52);R(264,68,16,12,'#3f8f3a');R(266,70,3,3,'#5fd35f');R(272,72,3,3,'#2f7a2a');R(288,68,18,12,'#f0a0b0');R(288,68,18,2,'#d97a8a');R(292,72,4,4,'#fff6dc');R(300,72,4,4,'#fff6dc');
 shelf(259,102,52);for(let i=0;i<5;i++){R(264+i*9,88,2,14,'#aeb3ba');R(263+i*9,86,4,3,'#8a8e96')}
 R(84,CT-20,164,20,'#4a4a52');R(84,CT-20,164,2,'#7a7a84');for(let i=0;i<4;i++){R(88+i*40,CT-15,36,12,'#3a3a42');R(100+i*40,CT-11,12,2,'#8a8e96')}
-{if(custImg.complete&&custImg.naturalWidth){const w=64,h=88;ctx.imageSmoothingEnabled=false;ctx.drawImage(custImg,0,0,32,44,150-w/2,CT+8-h+Math.round(Math.sin(G.t*3)*.8),w,h)}}
+{if(custImg.complete&&custImg.naturalWidth){const w=48,h=66;ctx.imageSmoothingEnabled=false;ctx.drawImage(custImg,0,0,32,44,150-w/2,CT+8-h+Math.round(Math.sin(G.t*3)*.8),w,h)}}
 R(206,CT-52,44,32,'#8a8e96');R(206,CT-52,44,3,'#c4c8cf');R(202,CT-56,52,5,'#aeb3ba');R(200,CT-46,6,4,'#6a6e76');R(250,CT-46,6,4,'#6a6e76');R(210,CT-47,4,24,'#b5b9c0');R(240,CT-47,6,26,'#6a6e76');
 for(let i=0;i<5;i++){const p=(G.t*.5+i/5)%1;ctx.globalAlpha=(1-p)*.75;R(210+i*7+Math.sin(G.t*2+i*2)*3,CT-60-p*34,6+p*4,6+p*4,'#fff');ctx.globalAlpha=1}
 ctx.restore();lan(28);lan(292);ctx.save();ctx.translate(0,-DY);
