@@ -105,12 +105,12 @@ const encP=p=>p.split('/').map(encodeURIComponent).join('/');
 function addCust(im){const o=prepCust(im);if(!o)return;const w=o.width||o.naturalWidth,h=o.height||o.naturalHeight;CUSTS.push({im:o,w,h})}
 (function(){for(let n=1;n<=60;n++){const im=new Image();im.onload=()=>addCust(im);im.onerror=()=>{};im.src=encP('customers/一般客人/'+n+'.png')}})();
 const SPECIALS=[];
-(function(){const parse=t=>{if(!t)return;const nm={};ITEMS.forEach(i=>nm[i.n]=i.id);nm['蔥花']='sc';
+(function(){const cfgN=new Set();const parse=t=>{if(!t)return;const nm={};ITEMS.forEach(i=>nm[i.n]=i.id);nm['蔥花']='sc';
 t.split(/\r?\n/).forEach(ln=>{ln=ln.replace(/^\uFEFF/,'').trim();if(!ln||ln[0]==='#'||ln[0]==='＃')return;const f=ln.split(/[|｜:：,，]/).map(x=>x.trim());
-const n=parseInt(f[0]);if(!n||!f[2])return;const items=f[2].split(/[、+＋\s\/]+/).filter(Boolean).map(x=>nm[x]).filter(Boolean);if(!items.length)return;
+const n=parseInt(f[0]);if(!n||!f[2])return;const items=f[2].split(/[、+＋\s\/]+/).filter(Boolean).map(x=>nm[x]).filter(Boolean);if(!items.length)return;cfgN.add(n);
 const mm=parseFloat(f[3])||2,fm=parseFloat(f[4])||mm;const im=new Image();
 im.onload=()=>{const o=prepCust(im);if(!o)return;SPECIALS.push({name:f[1]||'',items,mm,fm,e:{im:o,w:o.width||o.naturalWidth,h:o.height||o.naturalHeight}})};im.onerror=()=>{};im.src=encP('customers/特殊客人/'+n+'.png')})};
-try{const sc=document.createElement('script');sc.charset='utf-8';sc.onload=()=>parse(window.JNR_SPECIAL||'');sc.onerror=()=>{};sc.src=encP('customers/特殊客人/設定.js');document.head.appendChild(sc)}catch(e){}})();
+try{const sc=document.createElement('script');sc.charset='utf-8';const probe=()=>{const ids=ITEMS.map(i=>i.id),L=ids.length;for(let n=1;n<=60;n++){if(cfgN.has(n))continue;const im=new Image();im.onload=()=>{const o=prepCust(im);if(!o)return;SPECIALS.push({name:'',items:[ids[(n*3)%L],ids[(n*3+4)%L],ids[(n*7+1)%L]],mm:2,fm:2,e:{im:o,w:o.width||o.naturalWidth,h:o.height||o.naturalHeight}})};im.onerror=()=>{};im.src=encP('customers/特殊客人/'+n+'.png')}};sc.onload=()=>{parse(window.JNR_SPECIAL||'');probe()};sc.onerror=probe;sc.src=encP('customers/特殊客人/設定.js');document.head.appendChild(sc)}catch(e){}})();
 const DSP=[{name:'',items:['nr','eg','cs'],mm:2,fm:2},{name:'',items:['sc','co','ab'],mm:2,fm:2}];
 const spOf=c=>c.spi==null?null:c.spi<0?DSP[-c.spi-1]||null:(SPECIALS[c.spi]||null);
 const custOf=c=>{let e;const so=spOf(c);if(so&&so.e)e=so.e;else{const L=CUSTS.length?CUSTS:(custImg.complete&&custImg.naturalWidth?(CUSTS.def||(CUSTS.def=[{im:custImg,w:custImg.naturalWidth,h:custImg.naturalHeight}])):[]);if(!L.length)return null;e=L[Math.floor((c.spr||0)*L.length)%L.length]}const S=1.5;if(e.im.__raw&&e.h>70){const k=window.JNR_UPSCALE||3;return{im:e.im,w:Math.round(e.w*S/k),h:Math.round(e.h*S/k),sw:e.w,sh:e.h}}if(e.h>70){const f=44/e.h;return{im:e.im,w:Math.round(Math.round(e.w*f)*S),h:44*S,sw:e.w,sh:e.h}}return{im:e.im,w:Math.round(e.w*S),h:Math.round(e.h*S),sw:e.w,sh:e.h}};
@@ -311,7 +311,7 @@ G.serving=null;G.bowl=[];G.noodle=null;G.cook=null;zoomOut();checkLv()}
 function leave(c){c.state='leave';c.wp=[[c.x,WY],[-24,WY]]}
 function spawn(){const s=Array.from({length:seatN()},(_,i)=>i).find(i=>!G.cust.some(c=>c.seat===i&&c.state!=='leave'));if(s==null)return;
 const u=unl(),L=lvl(),n=G.demo?2+(rnd()*2|0):L>=10?1+(rnd()*5|0):L>=7?1+(rnd()*4|0):1+(rnd()<.5?1:0)+(L>=3&&rnd()<.4?1:0),max=30*(G.ups.warm?1.25:1)*(G.ups.ac?1.2:1)*(1+(G.rep-3)*.05);
-let spi=null;const fx=u.length>=ITEMS.length;if(G.demo){G.dn=(G.dn||0)+1;if(G.dn<=2){const el=SPECIALS.map((x,i)=>i).filter(i=>SPECIALS[i].items.every(id=>u.some(t=>t.id===id)));spi=el.length?el[rnd()*el.length|0]:-G.dn}}else if(SPECIALS.length&&rnd()<(window.JNR_SPECIAL_RATE||.25)){const el=SPECIALS.map((x,i)=>i).filter(i=>!G.cust.some(c=>c.spi===i&&c.state!=='leave'));if(el.length)spi=el[rnd()*el.length|0]}
+let spi=null;const fx=u.length>=ITEMS.length;if(G.demo){G.dn=(G.dn||0)+1;if(G.dn<=2){const el=SPECIALS.map((x,i)=>i).filter(i=>SPECIALS[i].items.every(id=>u.some(t=>t.id===id)));spi=el.length?el[((G.dn-1)+(G.d0==null?(G.d0=rnd()*el.length|0):G.d0))%el.length]:-G.dn}}else if(SPECIALS.length){G.spN=(G.spN||0)+1;if(G.spN>(window.JNR_SPECIAL_EVERY||5)){G.spN=0;if(!G.spBag||!G.spBag.length)G.spBag=SPECIALS.map((x,i)=>i).sort(()=>rnd()-.5);spi=G.spBag.pop()}}
 G.cust.push({id:G.nid++,spi,fx:spi!=null&&fx,spr:rnd(),x:-12,y:WY,seat:s,state:'walk',wp:[[SXf(s),WY],[SXf(s),SY]],t:rnd()*3,hair:HAIR[rnd()*5|0],shirt:SHIRT[rnd()*5|0],
 order:spi!=null&&fx?spOf({spi}).items.slice():(n>=4?u.map(i=>i.id).sort(()=>rnd()-.5).slice(0,n):Array.from({length:n},()=>u[rnd()*u.length|0].id)),pat:G.demo?26:max,max:G.demo?26:max})}
 function bot(dt){const d=G.demo;d.bt=(d.bt||0)-dt;
