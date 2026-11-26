@@ -281,7 +281,9 @@ const setScene=s=>{G.scene=s;G.fade=1};
 const zoomOut=()=>{G.camT={z:1,x:160,y:100}};
 function openServe(c){if(c.state!=='wait')return;G.serving=c;G.bowl=[];G.bowlT=[];G.cook=null;G.noodle=null;G.zs=.2+rnd()*.54;G.camT={z:2.4,x:187,y:CT-DY-18}}
 const AU={on:(()=>{try{return localStorage.getItem('jnr_mute')!=='1'}catch(e){return true}})(),bgm:null,t0:0,ok:0};
-function sfx(n,v){AU.t0=performance.now();if(!AU.on)return;try{const a=new Audio('audio/'+n+'.mp3');a.volume=v==null?.6:v;const p=a.play();if(p&&p.catch)p.catch(()=>{})}catch(e){}}
+const POOL={};function sPool(n){return POOL[n]||(POOL[n]={a:[0,1,2].map(()=>{const x=new Audio('audio/'+n+'.mp3');x.preload='auto';return x}),i:0})}
+try{['ui','glass','brass'].forEach(sPool)}catch(e){}
+function sfx(n,v){AU.t0=performance.now();if(!AU.on)return;try{const P=sPool(n),a=P.a[P.i++%3];a.volume=v==null?.6:v;try{a.currentTime=0}catch(e){}const p=a.play();if(p&&p.catch)p.catch(()=>{})}catch(e){}}
 function bgmStart(){try{if(!AU.bgm){AU.bgm=new Audio('audio/bgm.mp3');AU.bgm.loop=true;AU.bgm.volume=.3}if(AU.on&&AU.bgm.paused){const p=AU.bgm.play();AU.ok=1;if(p&&p.catch)p.catch(()=>{AU.ok=0})}}catch(e){}}
 function setSound(on){AU.on=on;try{localStorage.setItem('jnr_mute',on?'0':'1')}catch(e){}if(on)bgmStart();else if(AU.bgm)AU.bgm.pause()}
 document.addEventListener('pointerdown',bgmStart);
@@ -296,7 +298,7 @@ function takeNoodle(){if(!G.cook)return;sfx('glass');const p=G.cook.t/4,z=G.zs;G
 function buyTop(id){const t=(G.ti[id]||0)+1;if(t>2||lvl()<IT[id].lv)return;const c=tcost(id,t);if(G.money<c)return;G.money-=c;G.ti[id]=t;sfx('brass')}
 function buy(id){const u=UPS.find(x=>x.id===id);if(G.ups[id]||G.money<u.cost||lvl()<u.lv||(u.req&&!G.ups[u.req]))return;G.money-=u.cost;G.ups[id]=1;sfx('brass')}
 function checkLv(){const l=lvl();if(l>G.lvShown){G.lvShown=l;const nw=ITEMS.filter(i=>i.lv===l).map(i=>i.n).join('、');G.banner={t:0,tx:'店舖升級 Lv'+l+'!'+(nw?' 新菜單:'+nw:'')}}}
-function serve(){const c=G.serving;if(!c||!G.noodle)return;const need=[...c.order];let m=0,ex=0,val=0;
+function serve(){const c=G.serving;if(!c||!G.noodle)return;sfx('glass');const need=[...c.order];let m=0,ex=0,val=0;
 G.bowl.forEach(b=>{const i=need.indexOf(b);if(i>=0){need.splice(i,1);m++;val+=Math.round(IT[b].p*TM[G.ti[b]||0])}else ex++});
 const r=Math.max(0,c.pat/c.max),q=G.noodle,full=m===c.order.length&&ex===0;
 const exact=full&&G.bowl.length===c.order.length&&G.bowl.every((b,i)=>b===c.order[i]);
