@@ -280,13 +280,21 @@ const unl=()=>ITEMS.filter(i=>i.lv<=lvl());
 const setScene=s=>{G.scene=s;G.fade=1};
 const zoomOut=()=>{G.camT={z:1,x:160,y:100}};
 function openServe(c){if(c.state!=='wait')return;G.serving=c;G.bowl=[];G.bowlT=[];G.cook=null;G.noodle=null;G.zs=.2+rnd()*.54;G.camT={z:2.4,x:187,y:CT-DY-18}}
-function pick(id){if(G.serving&&G.noodle&&G.bowl.length<5){G.bowl.push(id);G.bowlT.push(G.t)}}
-function unpick(i){G.bowl.splice(i,1);G.bowlT.splice(i,1)}
+const AU={on:(()=>{try{return localStorage.getItem('jnr_mute')!=='1'}catch(e){return true}})(),bgm:null,t0:0,ok:0};
+function sfx(n,v){AU.t0=performance.now();if(!AU.on)return;try{const a=new Audio('audio/'+n+'.mp3');a.volume=v==null?.6:v;const p=a.play();if(p&&p.catch)p.catch(()=>{})}catch(e){}}
+function bgmStart(){try{if(!AU.bgm){AU.bgm=new Audio('audio/bgm.mp3');AU.bgm.loop=true;AU.bgm.volume=.3}if(AU.on&&AU.bgm.paused){const p=AU.bgm.play();AU.ok=1;if(p&&p.catch)p.catch(()=>{AU.ok=0})}}catch(e){}}
+function setSound(on){AU.on=on;try{localStorage.setItem('jnr_mute',on?'0':'1')}catch(e){}if(on)bgmStart();else if(AU.bgm)AU.bgm.pause()}
+document.addEventListener('pointerdown',bgmStart);
+document.addEventListener('visibilitychange',()=>{if(!AU.bgm)return;if(document.hidden)AU.bgm.pause();else if(AU.on&&AU.ok)AU.bgm.play().catch(()=>{})});
+document.addEventListener('click',e=>{const b=e.target&&e.target.closest&&e.target.closest('button');if(!b||b.disabled)return;if(performance.now()-AU.t0<80)return;sfx('ui',1)});
+const PZB={width:'9em',fontSize:'1.4em',padding:'.4em 0',marginTop:'.6em',textAlign:'center'};
+function pick(id){if(G.serving&&G.noodle&&G.bowl.length<5){G.bowl.push(id);G.bowlT.push(G.t);sfx('glass')}}
+function unpick(i){G.bowl.splice(i,1);G.bowlT.splice(i,1);sfx('glass')}
 function cancel(){G.serving=null;G.bowl=[];G.cook=null;G.noodle=null;zoomOut()}
-function startCook(){if(G.serving&&!G.cook&&!G.noodle)G.cook={t:0}}
-function takeNoodle(){if(!G.cook)return;const p=G.cook.t/4,z=G.zs;G.noodle=p>=z&&p<=z+.22?'perfect':p>=z-.12&&p<=z+.38?'ok':'bad';G.acc=Math.max(0,1-Math.abs(p-(z+.11))/.4);G.stopP=Math.min(1,p);G.noodleT=G.t;G.cook=null}
-function buyTop(id){const t=(G.ti[id]||0)+1;if(t>2||lvl()<IT[id].lv)return;const c=tcost(id,t);if(G.money<c)return;G.money-=c;G.ti[id]=t}
-function buy(id){const u=UPS.find(x=>x.id===id);if(G.ups[id]||G.money<u.cost||lvl()<u.lv||(u.req&&!G.ups[u.req]))return;G.money-=u.cost;G.ups[id]=1}
+function startCook(){if(G.serving&&!G.cook&&!G.noodle){G.cook={t:0};sfx('glass')}}
+function takeNoodle(){if(!G.cook)return;sfx('glass');const p=G.cook.t/4,z=G.zs;G.noodle=p>=z&&p<=z+.22?'perfect':p>=z-.12&&p<=z+.38?'ok':'bad';G.acc=Math.max(0,1-Math.abs(p-(z+.11))/.4);G.stopP=Math.min(1,p);G.noodleT=G.t;G.cook=null}
+function buyTop(id){const t=(G.ti[id]||0)+1;if(t>2||lvl()<IT[id].lv)return;const c=tcost(id,t);if(G.money<c)return;G.money-=c;G.ti[id]=t;sfx('brass')}
+function buy(id){const u=UPS.find(x=>x.id===id);if(G.ups[id]||G.money<u.cost||lvl()<u.lv||(u.req&&!G.ups[u.req]))return;G.money-=u.cost;G.ups[id]=1;sfx('brass')}
 function checkLv(){const l=lvl();if(l>G.lvShown){G.lvShown=l;const nw=ITEMS.filter(i=>i.lv===l).map(i=>i.n).join('、');G.banner={t:0,tx:'店舖升級 Lv'+l+'!'+(nw?' 新菜單:'+nw:'')}}}
 function serve(){const c=G.serving;if(!c||!G.noodle)return;const need=[...c.order];let m=0,ex=0,val=0;
 G.bowl.forEach(b=>{const i=need.indexOf(b);if(i>=0){need.splice(i,1);m++;val+=Math.round(IT[b].p*TM[G.ti[b]||0])}else ex++});
@@ -432,7 +440,7 @@ if(!f)return fb();try{const r=f.call(e),ok=()=>{};if(r&&r.then)r.then(ok,fb);els
 const fmtT=t=>{const d=new Date(t),p=n=>String(n).padStart(2,'0');return (d.getMonth()+1)+'/'+d.getDate()+' '+p(d.getHours())+':'+p(d.getMinutes())};
 const Ico=({id})=>h('img',{className:'ico',src:ICON[id],draggable:false,alt:IT[id].n});
 function App(){
-const[view,setView]=useState(()=>document.documentElement.classList.contains('lp')?'p':'l'),[s,setS]=useState(snap()),[open,setOpen]=useState(false),[tut,setTut]=useState(null),[sv,setSv]=useState(null),[saves,setSaves]=useState(()=>getSaves()),[pz,setPz]=useState(false),cv=useRef();
+const[view,setView]=useState(()=>document.documentElement.classList.contains('lp')?'p':'l'),[s,setS]=useState(snap()),[open,setOpen]=useState(false),[tut,setTut]=useState(null),[sv,setSv]=useState(null),[saves,setSaves]=useState(()=>getSaves()),[pz,setPz]=useState(false),[mu,setMu]=useState(0),cv=useRef();
 useEffect(()=>{G.paused=open||pz||sv!=null},[open,pz,sv]);
 useEffect(()=>{if(!s.dfocus)return;const el=document.getElementById(s.dfocus);if(el&&el.scrollIntoView)try{el.scrollIntoView({behavior:'smooth',block:'center'})}catch(e){el.scrollIntoView()}},[s.dfocus]);
 useEffect(()=>{const k=e=>{if((e.key==='p'||e.key==='Escape')&&G.scene==='shop')setPz(v=>!v)};addEventListener('keydown',k);return()=>removeEventListener('keydown',k)},[]);
@@ -472,14 +480,14 @@ s.banner&&h('div',{className:'ov bn',style:{top:'22%',left:0,right:0,justifyCont
 tut!=null&&h('div',{className:'ov',style:{inset:0,background:'#000c',alignItems:'center',justifyContent:'center',zIndex:20}},h('div',{className:'bx',style:{width:'62%',borderColor:'#ffd24a',display:'flex',flexDirection:'column',gap:'.8em',padding:'1em 1.4em'}},
 h('div',{style:{fontSize:'1.6em',color:'#ffd24a'}},TUT[tut][0]),h('div',{style:{lineHeight:1.7,minHeight:'5.5em'}},TUT[tut][1]),
 h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center'}},h('div',null,TUT.map((_,i)=>h('i',{key:i,className:'tdot'+(i===tut?' on':'')}))),
-h('div',{style:{display:'flex',gap:'.5em'}},tut>0&&h('button',{className:'btn tb',onClick:()=>setTut(tut-1)},'上一頁'),tut<TUT.length-1?h('button',{className:'btn g tb',onClick:()=>setTut(tut+1)},'下一頁'):h('button',{className:'btn g tb',onClick:()=>{setTut(null);newGame()}},'開始營業'))))),
+h('div',{style:{display:'flex',gap:'.5em'}},tut<TUT.length-1&&h('button',{className:'btn tb',style:{background:'#555'},onClick:()=>{setTut(null);newGame()}},'SKIP'),tut>0&&h('button',{className:'btn tb',onClick:()=>setTut(tut-1)},'上一頁'),tut<TUT.length-1?h('button',{className:'btn g tb',onClick:()=>setTut(tut+1)},'下一頁'):h('button',{className:'btn g tb',onClick:()=>{setTut(null);newGame()}},'開始營業'))))),
 sv&&h('div',{className:'ov',style:{inset:0,background:'#000c',alignItems:'center',justifyContent:'center',zIndex:20}},h('div',{className:'bx',style:{width:'60%',borderColor:'#ffd24a',display:'flex',flexDirection:'column',gap:'.6em',padding:'1em 1.4em'}},
 h('div',{style:{fontSize:'1.5em',color:'#ffd24a'}},sv==='save'?'存檔':'繼續遊戲'),
 [0,1,2].map(i=>{const d=saves[i];return h('div',{key:i,style:{display:'flex',alignItems:'center',justifyContent:'space-between',gap:'1em',padding:'.5em',border:'3px solid #8a4f24',background:'#3a1c10'}},
 h('span',null,'紀錄 '+(i+1)+' — '+(d?'¥'+d.money+' · Lv'+d.lv+' · '+fmtT(d.at):'(空)')),
 sv==='save'?h('button',{className:'btn g',onClick:()=>{setSaves(saveGame(i))}},d?'覆蓋':'存檔'):h('button',{className:'btn g',disabled:!d,onClick:()=>{loadGame(i);setSv(null)}},'讀取'))}),
 h('div',{style:{textAlign:'right'}},h('button',{className:'btn',onClick:()=>setSv(null)},'關閉')))),
-pz&&h('div',{className:'ov',style:{inset:0,background:'#000b',alignItems:'center',justifyContent:'center',flexDirection:'column'}},h('div',{className:'res'},'暫停中'),h('button',{className:'btn big',onClick:()=>setPz(false)},'繼續'),h('button',{className:'btn g',style:{marginTop:'.6em'},onClick:()=>{setSaves(getSaves());setSv('save')}},'存檔')),
+pz&&h('div',{className:'ov',style:{inset:0,background:'#000b',alignItems:'center',justifyContent:'center',flexDirection:'column'}},h('div',{className:'res'},'暫停中'),h('button',{className:'btn',style:PZB,onClick:()=>setPz(false)},'繼續'),h('button',{className:'btn g',style:PZB,onClick:()=>{setSaves(getSaves());setSv('save')}},'存檔'),h('button',{className:'btn g',style:PZB,onClick:()=>{setSound(!AU.on);setMu(x=>x+1)}},AU.on?'音樂音效:開':'音樂音效:關')),
 (open||s.dshop)&&h('div',{className:'ov',style:{inset:0,background:'#000a',alignItems:'center',justifyContent:'center',paddingTop:s.dshop?'3em':0}},h('div',{className:'bx shopm',style:{width:'70%',maxHeight:'92%',overflow:'auto',borderColor:'#d93a35',display:'block'}},
 h('div',{style:{position:'sticky',top:'-.4em',zIndex:2,background:'#241410',display:'flex',justifyContent:'space-between',alignItems:'center',margin:'-.4em -.8em .4em',padding:'.4em .8em'}},h('div',{style:{fontSize:'1.4em'}},'菜單'),h('button',{className:'btn',onClick:()=>setOpen(false)},'關閉')),
 h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'.5em'}},ITEMS.map(i=>{const lock=i.lv>s.lv,t=s.ti[i.id]||0;return h('div',{key:i.id,id:'tp-'+i.id,className:'tpc',style:{padding:'.4em',border:'3px solid #8a4f24',background:'#3a1c10',opacity:lock?.4:1}},h(Ico,{id:i.id}),h('div',{style:{flex:1,minWidth:0}},h('div',null,i.n),h('div',{style:{color:TC[t],fontSize:'.85em'}},TN[t]+' ¥'+Math.round(i.p*TM[t])),h('div',{style:{display:'flex',gap:'.2em',marginTop:'.25em'}},[1,2,3].map(q=>h('i',{key:q,style:{flex:1,height:'.6em',border:'2px solid #f2b84b',background:t+1>=q?'#ffd24a':'#000'}})))),lock?h('span',{className:'act',style:{fontSize:'.8em'}},'Lv'+i.lv+'解鎖'):t>=2?h('span',{className:'act',style:{color:TC[2]}},'滿級'):h('button',{className:'btn tb act',disabled:s.mr<tcost(i.id,t+1),onClick:()=>buyTop(i.id)},'升級 ¥'+tcost(i.id,t+1)))})),
