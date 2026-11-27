@@ -1,0 +1,12 @@
+字體放這裡
+==========
+遊戲的像素字體是 DotGothic16(Google Fonts,SIL Open Font License,可免費商用)。
+為了讓遊戲完全不連網路,請自己下載字體檔放進這個資料夾:
+
+1. 打開 https://fonts.google.com/specimen/DotGothic16 ,按右上角「Get font」→「Download all」。
+2. 解壓縮後找到 DotGothic16-Regular.ttf,放進這個 fonts 資料夾。
+3. 檔名要完全一樣:fonts/DotGothic16-Regular.ttf
+
+沒放的話,遊戲會改用玩家電腦上的字體(畫面一樣能玩,只是不是像素風,
+而且瀏覽器主控台會多一行這個檔案的 404,不影響遊戲)。
+若玩家的電腦本來就有安裝 DotGothic16,會直接使用電腦上的那一份。
