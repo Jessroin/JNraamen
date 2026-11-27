@@ -64,13 +64,14 @@ html.lp .ov.sv .btn{flex:1 1 40%}
 html.lp .wrap:has(.sv){padding-top:1em}
 html.lp .wrap:has(.sv) .hudr{display:none}
 html.lp .wrap:has(.sv) .ov.hint.dm{position:absolute!important;top:.2em;left:0;right:0;padding:0;z-index:5}
-html.lp .tcol{left:0!important;right:0;justify-content:space-between!important;align-items:center!important;padding:13% 0 7%}
+html.lp .tcol{left:0!important;right:0;justify-content:space-between!important;align-items:center!important;padding:4% 0 7%}
 html.lp .tt2{font-size:3.6em;text-align:center}
-.crbot{display:none}html.lp .crtop{display:none}html.lp .crbot{display:block;flex:1 1 100%;pointer-events:auto;text-align:center;font-size:1.05em!important}
-.lz{position:relative;display:inline-block}.lz>.sz{visibility:hidden;white-space:pre}.lz>.lb{position:absolute;left:0;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:.82em;line-height:1.1}button .lz>.lb,.rsl .lz>.lb{left:50%;transform:translate(-50%,-50%)}html[lang=ja] .lz>.lb{font-size:.9em}.it .lz{display:block;width:100%;text-align:center}.it .lz>.lb{font-size:.78em}
+.crbot{display:none}html.ll .tcol{left:1.5%!important}html.ll .crw{right:1%!important}html.lp .crtop{display:none}html.lp .crbot{display:block;flex:1 1 100%;pointer-events:auto;text-align:center;font-size:1.05em!important}
+.lz{position:relative;display:inline-block}.lz>.sz{visibility:hidden;white-space:pre}.lz>.lb{position:absolute;left:0;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:.82em;line-height:1.1}button .lz>.lb,.rsl .lz>.lb{left:50%;transform:translate(-50%,-50%)}html[lang=ja] .lz>.lb{font-size:.9em}.it .lz{display:block;width:100%;text-align:center}.it .lz>.lb{font-size:.78em}html[lang=ja] .it .lz>.lb{font-size:.7em}
 .tt2.len .ch{font-size:.56em}.tt2.lja .ch{font-size:.66em}
 html.lp .tbtn{flex-direction:row!important;flex-wrap:wrap;justify-content:center;align-items:center!important;width:84%}
 html.lp .tbtn .btn{flex:1 1 40%}html.lp .tbtn .btn.big{flex:1 1 100%}
+html.lp .tcol{padding-bottom:2.5%!important}html.lp .tbtn{width:72%;gap:.4em .5em;align-self:center;margin:0}html.lp .tbtn .btn{font-size:.78em!important;padding:.35em .4em!important;margin:0!important}html.lp .tbtn .btn.big{font-size:.9em!important}html.lp .crbot{font-size:.78em!important;padding:.2em .4em!important;text-align:center!important}
 html:not(.sm) .vtog{display:none}
 @media (orientation:portrait) and (max-width:900px){
 html.ll.sm .wrap{--sw:min(100vh,calc(100vw*1.6));position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) rotate(90deg)}
@@ -84,7 +85,7 @@ html.lp .tpc{display:grid;grid-template-columns:auto 1fr;gap:.4em .6em;align-ite
 /* 平板/手機橫放:不限制最大寬度,依螢幕等比放到最大 */
 @media (orientation:landscape){html.ll.sm .wrap{--sw:min(100vw,calc(100vh*1.6));font-size:clamp(10px,calc(var(--sw)*.0144),44px)}}
 @supports (height:100dvh){@media (orientation:landscape){html.ll.sm .wrap{--sw:min(100vw,calc(100dvh*1.6))}}}
-.tlogo{display:block;width:30em;max-width:100%;height:auto;pointer-events:none;filter:drop-shadow(0 .25em .4em #0009);animation:lbob 2.4s ease-in-out infinite}@keyframes lbob{50%{transform:translateY(-.15em)}}html.lp .tlogo{width:24em;max-width:92%;margin:0 auto}</style><script>(function(){var d=document.documentElement,sm=false;try{sm=Math.min(screen.width,screen.height)<700||matchMedia('(pointer:coarse)').matches}catch(e){}var v=sm?'p':'l';try{var s=localStorage.getItem('jnr_view');if(s==='p'||s==='l')v=s}catch(e){}d.className=(sm?'sm ':'')+(v==='p'?'lp':'ll')})()</script></head><body><div id="root"></div>
+.tlogo{display:block;width:30em;max-width:100%;height:auto;pointer-events:none}@keyframes lbob{50%{transform:translateY(-.15em)}}html.ll .tcol{justify-content:space-between!important;padding:3% 0 4%;box-sizing:border-box}html.lp .tlogo{width:30em;max-width:92%;margin:0 auto;align-self:center}</style><script>(function(){var d=document.documentElement,sm=false;try{sm=Math.min(screen.width,screen.height)<700||matchMedia('(pointer:coarse)').matches}catch(e){}var v=sm?'p':'l';try{var s=localStorage.getItem('jnr_view');if(s==='p'||s==='l')v=s}catch(e){}d.className=(sm?'sm ':'')+(v==='p'?'lp':'ll')})()</script></head><body><div id="root"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
 <script>
@@ -92,7 +93,7 @@ const{createElement:h0,useState,useEffect,useRef}=React;
 const LK='jnr_lang';
 let LANG=(()=>{try{const v=localStorage.getItem(LK);if(v==='zh'||v==='en'||v==='ja')return v}catch(e){}const n=((navigator.languages&&navigator.languages[0])||navigator.language||'zh').toLowerCase();return n.indexOf('ja')===0?'ja':n.indexOf('zh')===0?'zh':'en'})();
 const D={
-'葱花':['Green onion','ねぎ'],'蔥花':['Green onion','ねぎ'],'海苔':['Nori','のり'],'溏心蛋':['Soft-boiled egg','味玉'],'叉燒':['Chashu','チャーシュー'],'筍乾':['Menma','メンマ'],'花花':['Naruto','なると'],'玉米':['Corn','コーン'],'炙燒五花':['Seared pork belly','炙りバラ肉'],'豆芽':['Bean sprouts','もやし'],'辣味噌':['Spicy miso','辛味噌'],
+'葱花':['Green onion','ねぎ'],'蔥花':['Green onion','ねぎ'],'海苔':['Nori','のり'],'溏心蛋':['Soft-boiled egg','味玉'],'叉燒':['Chashu','叉焼'],'筍乾':['Menma','メンマ'],'花花':['Naruto','なると'],'玉米':['Corn','コーン'],'炙燒五花':['Seared pork belly','炙りバラ肉'],'豆芽':['Bean sprouts','もやし'],'辣味噌':['Spicy miso','辛味噌'],
 '基本':['Basic','ベーシック'],'中級':['Mid','中級'],'高級':['Premium','高級'],
 '保溫鍋':['Warming pot','保温鍋'],'客人更有耐心 +25%':['Customers are more patient +25%','お客さんの我慢強さ +25%'],
 '追加座位':['Extra seat','席を追加'],'座位 +1':['Seats +1','席 +1'],
@@ -133,13 +134,13 @@ const D={
 'DEMO 自動演示中 · ':['DEMO auto-play · ','DEMO 自動デモ中 · '],'退出':['Quit','終了'],
 '點擊等待中的客人開始點餐':['Tap a waiting customer','待機中のお客さんをタップ'],
 '點單:':['Order:','注文:'],'① 煮麵:':['① Boil:','① 麺:'],'完美彈牙!':['Chewy!','もちもち!'],'還可以':['Okay','まあまあ'],'煮壞了…':['Ruined…','失敗…'],
-'② 放配料':['② Toppings','② トッピング'],'下鍋':['Boil','茹でる'],'起鍋!':['Lift!','上げる!'],'碗:':['Bowl:','どんぶり:'],'點一下拿起來':['Tap to remove','タップで取り除く'],'上菜':['Serve','提供する'],
+'② 放配料':['② Toppings','② トッピング'],'下鍋':['Boil','茹でる'],'起鍋!':['Lift!','上げる!'],'碗:':['Bowl:','丼:'],'點一下拿起來':['Tap to remove','タップで取り除く'],'上菜':['Serve','提供する'],
 '上一頁':['Back','戻る'],'下一頁':['Next','次へ'],'開始營業':['Open shop','開店'],
 '紀錄 ':['Slot ','スロット '],'(空)':['(Empty)','(空)'],'覆蓋':['Overwrite','上書き'],'讀取':['Load','ロード'],
 '暫停中':['Paused','一時停止中'],'繼續':['Resume','再開'],'菜單':['Menu','メニュー'],'解鎖':['Unlock','解放'],'滿級':['Max','MAX'],'升級 ¥':['Upgrade ¥','強化 ¥'],'設備':['Equipment','設備'],' / 需先購前置':[' / Requires previous','/ 前提設備が必要'],'已購買':['Owned','購入済み'],
 '設定':['Settings','設定'],'存檔＆設定':['Save & Settings','セーブ＆設定'],'黃銅小盤':['Brass small plate','真鍮の小皿'],'玻璃圈':['Glass ring','ガラスリング'],'繁體中文':['繁體中文','繁體中文'],'日本語':['日本語','日本語'],'全部靜音':['Mute all','すべてミュート'],'全部取消靜音':['Unmute all','すべてミュート解除'],'音量':['Volume','音量'],'解鎖':['Unlock','解放'],'音樂音量':['Music volume','BGM音量'],'音效音量':['Sound effects volume','効果音の音量'],'靜音':['Mute','ミュート'],'取消靜音':['Unmute','ミュート解除'],'語言':['Language','言語']
 };
-const SH={'葱花':['Onion','ねぎ'],'海苔':['Nori','のり'],'溏心蛋':['Egg','味玉'],'叉燒':['Chashu','チャーシュー'],'筍乾':['Menma','メンマ'],'花花':['Naruto','なると'],'玉米':['Corn','コーン'],'炙燒五花':['Belly','バラ肉'],'豆芽':['Sprouts','もやし'],'辣味噌':['Miso','辛味噌']};
+const SH={'葱花':['Onion','ねぎ'],'海苔':['Nori','のり'],'溏心蛋':['Egg','味玉'],'叉燒':['Chashu','叉焼'],'筍乾':['Menma','メンマ'],'花花':['Naruto','なると'],'玉米':['Corn','コーン'],'炙燒五花':['Belly','バラ肉'],'豆芽':['Sprouts','もやし'],'辣味噌':['Miso','辛味噌']};
 const DK=Object.keys(D).filter(k=>k.length>=2).sort((a,b)=>b.length-a.length);
 const DRE=new RegExp(DK.map(k=>k.replace(/[.*+?^${}()|[\]\\\/]/g,'\\$&')).join('|'),'g');
 const CJK=/[㐀-鿿＀-￯]/;
@@ -561,7 +562,7 @@ h('canvas',{ref:cv,width:W*2,height:H*2,onClick,onMouseMove:onMove}),
 cr&&crPanel(),
 st&&stPanel(),
 s.scene==='street'&&h('div',{className:'ov',style:{inset:0,background:'#f8dba9'}},
-h('img',{src:COVER,style:{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover',pointerEvents:'none'}}),h('div',{style:{position:'absolute',right:'3%',top:'1.5%',zIndex:6,display:'flex',gap:'.6em',alignItems:'center'}},h('button',{className:'crtop',onClick:()=>setCr(true),style:LNK},'素材使用')),
+h('img',{src:COVER,style:{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover',pointerEvents:'none'}}),h('div',{className:'crw',style:{position:'absolute',right:'3%',top:'1.5%',zIndex:6,display:'flex',gap:'.6em',alignItems:'center'}},h('button',{className:'crtop',onClick:()=>setCr(true),style:LNK},'素材使用')),
 h('div',{className:'tcol',style:{position:'absolute',left:'5%',top:0,bottom:0,display:'flex',flexDirection:'column',alignItems:'flex-start',justifyContent:'center',gap:'1.2em',pointerEvents:'none'}},
 h('img',{className:'tlogo',src:'logo.png',alt:TT().join(' '),draggable:false}),
 h('div',{className:'tbtn',style:{display:'flex',flexDirection:'column',gap:'.8em',alignItems:'flex-start'}},h('button',{className:'btn big',onClick:()=>{if(view==='l'&&document.documentElement.classList.contains('sm'))goFull();setPz(false);setTut(0)}},'開始遊戲'),saves.some(Boolean)&&h('button',{className:'btn big',onClick:()=>{setSaves(getSaves());setSv('load')}},'繼續遊戲'),h('button',{className:'btn g',onClick:()=>{G=mk();G.demo={t:0,k:0};G.fame=thr(10);G.lvShown=10;G.money=5000;G.dm=5000;G.spawnT=.1;G.scene='shop'}},'▶ 演示模式'),h('button',{className:'btn g',onClick:()=>setSt(true)},'設定'),h('button',{className:'btn g vtog',onClick:tgView},view==='p'?'切換橫式':'切換直式'),h('button',{className:'crbot',onClick:()=>setCr(true),style:LNK},'素材使用')))),
