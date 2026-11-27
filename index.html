@@ -81,7 +81,7 @@ html.ll.sm .wrap{--sw:min(100vh,calc(100vw*1.6));position:fixed;left:50%;top:50%
 html.ll.sm .ov.sv{font-size:1.25em}html.ll.sm .ov.hudr .btn,html.ll.sm .ov.hint .btn{font-size:1.25em}html.ll.sm .ov.hudr .lvbx{font-size:1.2em}html.ll.sm .mny{font-size:1.2em}html.ll.sm .blink{font-size:1.7em}
 html.lp .shopm{width:94%!important}
 .tpc{display:flex;align-items:center;gap:.5em;border:3px solid #8a4f24;background:#3a1c10}.tpc>div{flex:1;min-width:0}
-html.lp .tpc{display:grid;grid-template-columns:auto 1fr;gap:.4em .6em;align-items:center}html.lp .tpc>.act{grid-column:1/-1;width:100%;text-align:center;min-height:0;padding:.35em .2em;font-size:1em}html.lp .upg>div>.btn{margin-top:auto}html.lp .tpc{align-content:space-between}.crw .lz>.lb{left:auto;right:0;transform:translateY(-50%)}.crw .lb,.crbot .lb{text-decoration:underline}
+html.lp .tpc{display:grid;grid-template-columns:auto 1fr;gap:.4em .6em;align-items:center}html.lp .tpc>.act{grid-column:1/-1;width:100%;text-align:center;min-height:0;padding:.35em .2em;font-size:1em}html.lp .upg>div>.btn{margin-top:auto}html.lp .tpc{align-content:space-between}.crw .lz>.lb{left:auto;right:0;transform:translateY(-50%)}.crw .lb,.crbot .lb{text-decoration:underline}.lz.r>.lb{left:auto;right:0}.act .lz{display:block;width:100%;text-align:center}.act .lz>.lb{left:50%;transform:translate(-50%,-50%)}
 .tpc .ico{width:2.4em}html.lp .upg{grid-template-columns:1fr!important}
 
 @media (orientation:landscape){html.ll.sm .wrap{--sw:min(100vw,calc(100vh*1.6));font-size:clamp(10px,calc(var(--sw)*.0144),44px)}}
@@ -283,7 +283,8 @@ function setLang(l) {
 }
 setLang(LANG);
 const tk = (c) => typeof c === "string" ? T(c) : Array.isArray(c) ? c.map(tk) : c;
-const Zs = (zh, cls) => h0("span", { className: "lz" }, h0("span", { className: "sz" }, zh), h0("span", { className: "lb" }, cls === "it" && SH[zh] ? SH[zh][LANG === "en" ? 0 : 1] : T(zh)));
+const RL = ["碗:", "點單:", "① 煮麵:"];
+const Zs = (zh, cls) => h0("span", { className: RL.includes(zh) ? "lz r" : "lz" }, h0("span", { className: "sz" }, zh), h0("span", { className: "lb" }, cls === "it" && SH[zh] ? SH[zh][LANG === "en" ? 0 : 1] : T(zh)));
 const zOK = (t, p, c) => t === "button" || t === "span" && p && (p.className || p.style) || t === "div" && p && (/blink|rsl/.test(p.className || "") || c.some((x) => x != null && typeof x !== "string" && x !== false));
 const h = (t, p, ...c) => {
   const z = LANG !== "zh" && c.some((x) => typeof x === "string" && CJK.test(x)) && zOK(t, p, c);
@@ -2157,7 +2158,7 @@ function App() {
       h("div", { style: { position: "sticky", top: "-.4em", zIndex: 2, background: "#241410", display: "flex", justifyContent: "space-between", alignItems: "center", margin: "-.4em -.8em .4em", padding: ".4em .8em" } }, h("div", { style: { fontSize: "1.4em" } }, "菜單"), h("button", { className: "btn", onClick: () => setOpen(false) }, "關閉")),
       h("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: ".5em" } }, ITEMS.map((i) => {
         const lock = i.lv > s.lv, t = s.ti[i.id] || 0;
-        return h("div", { key: i.id, id: "tp-" + i.id, className: "tpc", style: { padding: ".4em", border: "3px solid #8a4f24", background: "#3a1c10", opacity: lock ? 0.4 : 1 } }, h(Ico, { id: i.id }), h("div", { style: { flex: 1, minWidth: 0 } }, h("div", null, i.n), h("div", { style: { color: TC[t], fontSize: ".85em" } }, TN[t] + " ¥" + Math.round(i.p * TM[t])), h("div", { style: { display: "flex", gap: ".2em", marginTop: ".25em" } }, [1, 2, 3].map((q) => h("i", { key: q, style: { flex: 1, height: ".6em", border: "2px solid #f2b84b", background: t + 1 >= q ? "#ffd24a" : "#000" } })))), lock ? h("span", { className: "act", style: { fontSize: ".8em" } }, "Lv" + i.lv + " 解鎖") : t >= 2 ? h("span", { className: "act", style: { color: TC[2] } }, "滿級") : h("button", { className: "btn tb act", disabled: s.mr < tcost(i.id, t + 1), onClick: () => buyTop(i.id) }, "升級 ¥" + tcost(i.id, t + 1)));
+        return h("div", { key: i.id, id: "tp-" + i.id, className: "tpc", style: { padding: ".4em", border: "3px solid #8a4f24", background: "#3a1c10", opacity: lock ? 0.4 : 1 } }, h(Ico, { id: i.id }), h("div", { style: { flex: 1, minWidth: 0 } }, h("div", null, LANG !== "zh" && SH[i.n] ? SH[i.n][LANG === "en" ? 0 : 1] : i.n), h("div", { style: { color: TC[t], fontSize: ".85em" } }, TN[t] + " ¥" + Math.round(i.p * TM[t])), h("div", { style: { display: "flex", gap: ".2em", marginTop: ".25em" } }, [1, 2, 3].map((q) => h("i", { key: q, style: { flex: 1, height: ".6em", border: "2px solid #f2b84b", background: t + 1 >= q ? "#ffd24a" : "#000" } })))), lock ? h("span", { className: "act", style: { fontSize: ".8em" } }, "Lv" + i.lv + " 解鎖") : t >= 2 ? h("span", { className: "act", style: { color: TC[2] } }, "滿級") : h("button", { className: "btn tb act", disabled: s.mr < tcost(i.id, t + 1), onClick: () => buyTop(i.id) }, "升級 ¥" + tcost(i.id, t + 1)));
       })),
       h("div", { style: { fontSize: "1.4em", margin: ".6em 0 .3em" } }, "設備"),
       h("div", { className: "upg", style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: ".5em" } }, UPS.map((u) => {
