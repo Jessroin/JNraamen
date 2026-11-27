@@ -73,8 +73,8 @@ html.lp .tbtn{flex-direction:row!important;flex-wrap:wrap;justify-content:center
 html.lp .tbtn .btn{flex:1 1 40%}html.lp .tbtn .btn.big{flex:1 1 100%}
 html:not(.sm) .vtog{display:none}
 @media (orientation:portrait) and (max-width:900px){
-html.ll .wrap{--sw:min(100vh,calc(100vw*1.6));position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) rotate(90deg)}
-@supports (height:100dvh){html.ll .wrap{--sw:min(100dvh,calc(100vw*1.6))}}
+html.ll.sm .wrap{--sw:min(100vh,calc(100vw*1.6));position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) rotate(90deg)}
+@supports (height:100dvh){html.ll.sm .wrap{--sw:min(100dvh,calc(100vw*1.6))}}
 }
 /* 手機橫式:操作字體與按鈕放大 */
 html.ll.sm .ov.sv{font-size:1.25em}html.ll.sm .ov.hudr .btn,html.ll.sm .ov.hint .btn{font-size:1.25em}html.ll.sm .ov.hudr .lvbx{font-size:1.2em}html.ll.sm .mny{font-size:1.2em}html.ll.sm .blink{font-size:1.7em}
@@ -84,7 +84,7 @@ html.lp .tpc{display:grid;grid-template-columns:auto 1fr;gap:.4em .6em;align-ite
 /* 平板/手機橫放:不限制最大寬度,依螢幕等比放到最大 */
 @media (orientation:landscape){html.ll.sm .wrap{--sw:min(100vw,calc(100vh*1.6));font-size:clamp(10px,calc(var(--sw)*.0144),44px)}}
 @supports (height:100dvh){@media (orientation:landscape){html.ll.sm .wrap{--sw:min(100vw,calc(100dvh*1.6))}}}
-</style><script>(function(){var d=document.documentElement,sm=false;try{sm=Math.min(screen.width,screen.height)<700||matchMedia('(pointer:coarse)').matches}catch(e){}var v=sm?'p':'l';try{var s=localStorage.getItem('jnr_view');if(s==='p'||s==='l')v=s}catch(e){}d.className=(sm?'sm ':'')+(v==='p'?'lp':'ll')})()</script></head><body><div id="root"></div>
+.tlogo{display:block;width:30em;max-width:100%;height:auto;pointer-events:none;filter:drop-shadow(0 .25em .4em #0009);animation:lbob 2.4s ease-in-out infinite}@keyframes lbob{50%{transform:translateY(-.15em)}}html.lp .tlogo{width:24em;max-width:92%;margin:0 auto}</style><script>(function(){var d=document.documentElement,sm=false;try{sm=Math.min(screen.width,screen.height)<700||matchMedia('(pointer:coarse)').matches}catch(e){}var v=sm?'p':'l';try{var s=localStorage.getItem('jnr_view');if(s==='p'||s==='l')v=s}catch(e){}d.className=(sm?'sm ':'')+(v==='p'?'lp':'ll')})()</script></head><body><div id="root"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
 <script>
@@ -123,7 +123,7 @@ const D={
 '創作者:':['Created by: ','制作: '],'角色像素圖':['Character pixel art','キャラクターのドット絵'],'主廚':['Chef','店主'],'一般客人、特殊客人':['Regular & special customers','一般のお客さん・特別なお客さん'],
 '音樂與音效':['Music & sound effects','音楽と効果音'],'背景音樂':['Background music','BGM'],'介面提示音':['UI notification sound','UI通知音'],'黃銅小盤音效':['Brass bell sound','真鍮ベルの効果音'],'玻璃圈音效':['Glass ring sound','ガラスリングの効果音'],
 '字型與程式庫':['Fonts & libraries','フォントとライブラリ'],'字型':['font','フォント'],'來源:Google Fonts':['Source: Google Fonts','提供元: Google Fonts'],'授權:':['License: ','ライセンス: '],'作者:':['Author: ','作者: '],'來源網站:':['Source: ','提供元: '],'曲名/音效名:':['Title: ','曲名/効果音名: '],'使用範圍:':['Used for: ','使用箇所: '],'來源:免費素材網站':['Source: free asset site','提供元: 無料素材サイト'],
-'AI 生成內容':['AI-generated content','AI生成コンテンツ'],'店內場景':['Shop scene','店内の背景'],'以 AI 生成':['Generated with AI','AIで生成'],'(工具:':['(Tool: ','(ツール: '],'配料圖':['Ingredient icons','トッピングのアイコン'],
+'標題標誌':['Title logo','タイトルロゴ'],'AI 生成內容':['AI-generated content','AI生成コンテンツ'],'店內場景':['Shop scene','店内の背景'],'以 AI 生成':['Generated with AI','AIで生成'],'(工具:':['(Tool: ','(ツール: '],'配料圖':['Ingredient icons','トッピングのアイコン'],
 '插畫家・獨立遊戲創作者':['Illustrator & indie game creator','イラストレーター・インディーゲームクリエイター'],'個人網站':['Website','個人サイト'],
 '曲目編號':['Track No.','曲番号'],'營業場景循環背景音樂':['Looping background music for the shop','店内シーンのループBGM'],'標題與遊戲內所有功能按鈕':['Title screen and all in-game buttons','タイトル画面とゲーム内のすべてのボタン'],'購買設備升級、配料升級':['Buying equipment and topping upgrades','設備・トッピングのアップグレード購入'],'下鍋、起鍋、放配料、上菜':['Dropping noodles, lifting, adding toppings, serving','麺を入れる・引き上げ・トッピング・提供'],
 '依 OpenTracks 音源利用授權使用':['Used under the OpenTracks sound license','OpenTracksの音源利用ライセンスに従って使用'],'可免費使用、可商用':['Free to use, commercial use allowed','無料で使用可・商用利用可'],'卡斯伯':['Casper','カスパー'],'音效庫':['Sound Library','効果音ライブラリ'],'音樂平台':['Music Platform','音楽プラットフォーム'],
@@ -524,7 +524,7 @@ useEffect(()=>{ctx=cv.current.getContext('2d');let last=performance.now(),raf;
 const loop=n=>{const dt=Math.min(.05,(n-last)/1000);last=n;update(dt);draw();raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop);
 const iv=setInterval(()=>setS(snap()),90);return()=>{cancelAnimationFrame(raf);clearInterval(iv)}},[]);
 const tgView=()=>{const n=view==='p'?'l':'p';setView(n);const d=document.documentElement;d.className=(d.classList.contains('sm')?'sm ':'')+(n==='p'?'lp':'ll');try{localStorage.setItem('jnr_view',n)}catch(e){}if(n==='l')goFull();else{try{if(document.fullscreenElement)document.exitFullscreen()}catch(e){}}};
-const pos=e=>{const r=cv.current.getBoundingClientRect();const rot=document.documentElement.classList.contains('ll')&&matchMedia('(orientation:portrait) and (max-width:900px)').matches;if(!rot)return[(e.clientX-r.left)/r.width*W,(e.clientY-r.top)/r.height*H];const u=e.clientX-(r.left+r.width/2),v=e.clientY-(r.top+r.height/2);return[(v+r.height/2)/r.height*W,(-u+r.width/2)/r.width*H]};
+const pos=e=>{const r=cv.current.getBoundingClientRect();const rot=document.documentElement.classList.contains('ll')&&document.documentElement.classList.contains('sm')&&matchMedia('(orientation:portrait) and (max-width:900px)').matches;if(!rot)return[(e.clientX-r.left)/r.width*W,(e.clientY-r.top)/r.height*H];const u=e.clientX-(r.left+r.width/2),v=e.clientY-(r.top+r.height/2);return[(v+r.height/2)/r.height*W,(-u+r.width/2)/r.width*H]};
 const inShop=(x,y)=>x>90&&x<230&&y>12&&y<150;
 const onClick=e=>{if(G.demo)return;const[x,y]=pos(e);
 if(G.scene==='street'){}
@@ -549,7 +549,7 @@ CR_SEC('封面圖',[CR_ROW('標題封面插圖','orig',['創作者:'+AUTH.name],
 CR_SEC('角色像素圖',[CR_ROW('主廚','orig',['創作者:'+AUTH.name],[CI(custImg.src,'4.4em')],'chef'),CR_ROW('一般客人、特殊客人','orig',['創作者:'+AUTH.name],sortN(CSRC.gen).slice(0,1).map(x=>CI(x,'4.4em')).concat(sortN(CSRC.sp).slice(-3).map(x=>CI(x,'4.4em'))),'gen')],'s2'),
 CR_SEC('音樂與音效',[['bgm','背景音樂'],['ui','介面提示音'],['brass','黃銅小盤音效'],['glass','玻璃圈音效']].map(([k,n])=>CR_ROW(n,'free',audioLines(k),null,'a'+k)),'s3'),
 CR_SEC('字型與程式庫',[CR_ROW('DotGothic16 字型','oss',['來源:Google Fonts','授權:SIL Open Font License 1.1',CR_LINK('https://fonts.google.com/specimen/DotGothic16','https://fonts.google.com/specimen/DotGothic16','f1')],null,'f1'),CR_ROW('Chiron GoRound TC 字型','oss',['來源:Google Fonts','授權:SIL Open Font License 1.1',CR_LINK('https://fonts.google.com/specimen/Chiron+GoRound+TC','https://fonts.google.com/specimen/Chiron+GoRound+TC','f2')],null,'f2'),CR_ROW('React','oss',['作者:Meta Platforms, Inc.','授權:MIT License',CR_LINK('https://react.dev','https://react.dev','r1')],null,'r')],'s4'),
-CR_SEC('AI 生成內容',[CR_ROW('店內場景','ai',['以 AI 生成'+(AIT?'(工具:'+AIT+')':'')],[h('img',{key:'sc',src:SCN,style:{height:'7em',border:'2px solid #6b3a22',imageRendering:'pixelated'}})],'scn'),CR_ROW('配料圖','ai',['以 AI 生成'+(AIT?'(工具:'+AIT+')':'')],ITEMS.map(i=>h('img',{key:i.id,src:ICON[i.id],title:i.n,style:{height:'2.6em',imageRendering:'pixelated'}})),'ing')],'s5')));
+CR_SEC('AI 生成內容',[CR_ROW('標題標誌','ai',['以 AI 生成(工具:Meta Muse)'],[h('img',{key:'lg',src:'logo.png',style:{height:'3.4em'}})],'logo'),CR_ROW('店內場景','ai',['以 AI 生成'+(AIT?'(工具:'+AIT+')':'')],[h('img',{key:'sc',src:SCN,style:{height:'7em',border:'2px solid #6b3a22',imageRendering:'pixelated'}})],'scn'),CR_ROW('配料圖','ai',['以 AI 生成'+(AIT?'(工具:'+AIT+')':'')],ITEMS.map(i=>h('img',{key:i.id,src:ICON[i.id],title:i.n,style:{height:'2.6em',imageRendering:'pixelated'}})),'ing')],'s5')));
 const stRow=(k,lab)=>{const v=k==='b'?AU.bv:AU.sv,m=k==='b'?AU.mb:AU.ms,eff=m?0:v;return h('div',{key:k,style:{marginBottom:'1em'}},h('div',{style:{display:'flex',justifyContent:'space-between',marginBottom:'.3em'}},h('span',null,lab),h('span',{style:{color:'#ffd24a'}},Math.round(eff*100)+'%')),h('div',{style:{display:'flex',alignItems:'center',gap:'.7em'}},h('input',{type:'range',min:0,max:100,step:1,value:Math.round(eff*100),'aria-label':lab,onChange:e=>{setVol(k,e.target.value/100);setMu(x=>x+1)},style:{flex:1,accentColor:'#ffd24a',height:'1.6em',minWidth:0,cursor:'pointer'}}),h('button',{className:m||eff<=0?'btn':'btn g',style:{minWidth:'5.5em',padding:'.3em .4em',textAlign:'center'},onClick:()=>{setMute(k,!m&&eff>0);setMu(x=>x+1)}},m||eff<=0?'取消靜音':'靜音')))};
 const stPanel=()=>{const all=AU.mb&&AU.ms;return h('div',{style:{position:'absolute',inset:0,zIndex:70,background:'rgba(0,0,0,.8)',display:'flex',alignItems:'center',justifyContent:'center',pointerEvents:'auto'},onClick:()=>setSt(false)},
 h('div',{onClick:e=>e.stopPropagation(),style:{width:'92%',maxWidth:'30em',maxHeight:'88%',overflowY:'auto',background:'#2a140d',border:'3px solid #ffd24a',color:'#fff6dc',padding:'1em 1.1em',fontSize:'.95em',lineHeight:1.5,boxSizing:'border-box'}},
@@ -563,7 +563,7 @@ st&&stPanel(),
 s.scene==='street'&&h('div',{className:'ov',style:{inset:0,background:'#f8dba9'}},
 h('img',{src:COVER,style:{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover',pointerEvents:'none'}}),h('div',{style:{position:'absolute',right:'3%',top:'1.5%',zIndex:6,display:'flex',gap:'.6em',alignItems:'center'}},h('button',{className:'crtop',onClick:()=>setCr(true),style:LNK},'素材使用')),
 h('div',{className:'tcol',style:{position:'absolute',left:'5%',top:0,bottom:0,display:'flex',flexDirection:'column',alignItems:'flex-start',justifyContent:'center',gap:'1.2em',pointerEvents:'none'}},
-h('div',{className:'tt2 l'+LANG,style:{marginTop:0,lineHeight:1.15}},...[...TT()[0]].map((ch,i)=>h('span',{key:'a'+LANG+i,className:'ch',style:{animationDelay:(i*.15)+'s'}},ch===' '?'\u00a0':ch)),h('br'),...[...TT()[1]].map((ch,i)=>h('span',{key:'b'+LANG+i,className:'ch',style:{animationDelay:(.3+i*.15)+'s'}},ch===' '?'\u00a0':ch))),
+h('img',{className:'tlogo',src:'logo.png',alt:TT().join(' '),draggable:false}),
 h('div',{className:'tbtn',style:{display:'flex',flexDirection:'column',gap:'.8em',alignItems:'flex-start'}},h('button',{className:'btn big',onClick:()=>{if(view==='l'&&document.documentElement.classList.contains('sm'))goFull();setPz(false);setTut(0)}},'開始遊戲'),saves.some(Boolean)&&h('button',{className:'btn big',onClick:()=>{setSaves(getSaves());setSv('load')}},'繼續遊戲'),h('button',{className:'btn g',onClick:()=>{G=mk();G.demo={t:0,k:0};G.fame=thr(10);G.lvShown=10;G.money=5000;G.dm=5000;G.spawnT=.1;G.scene='shop'}},'▶ 演示模式'),h('button',{className:'btn g',onClick:()=>setSt(true)},'設定'),h('button',{className:'btn g vtog',onClick:tgView},view==='p'?'切換橫式':'切換直式'),h('button',{className:'crbot',onClick:()=>setCr(true),style:LNK},'素材使用')))),
 s.scene==='shop'&&!s.order&&h('div',{className:'ov',style:{top:'2%',left:'1.5%'}},h('div',{className:'bx mny'},h('div',{style:{color:'#ffd24a',fontSize:'1.5em'}},'¥ '+s.money))),
 s.scene==='shop'&&h('div',{className:'ov hudr',style:{top:'2%',right:'1.5%',alignItems:'flex-start'}},

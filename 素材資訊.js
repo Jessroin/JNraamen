@@ -27,4 +27,4 @@ window.JNR_AUDIO_CREDITS={
 
 // ── AI 生成內容使用的工具 ──
 // 例如 'Midjourney'、'Stable Diffusion'、'ComfyUI'。留空就只寫「AI 生成」。
-window.JNR_AI_TOOL='';
+window.JNR_AI_TOOL='Claude';
