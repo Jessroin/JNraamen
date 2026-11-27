@@ -81,7 +81,8 @@ html.ll.sm .wrap{--sw:min(100vh,calc(100vw*1.6));position:fixed;left:50%;top:50%
 html.ll.sm .ov.sv{font-size:1.25em}html.ll.sm .ov.hudr .btn,html.ll.sm .ov.hint .btn{font-size:1.25em}html.ll.sm .ov.hudr .lvbx{font-size:1.2em}html.ll.sm .mny{font-size:1.2em}html.ll.sm .blink{font-size:1.7em}
 html.lp .shopm{width:94%!important}
 .tpc{display:flex;align-items:center;gap:.5em;border:3px solid #8a4f24;background:#3a1c10}.tpc>div{flex:1;min-width:0}
-html.lp .tpc{display:grid;grid-template-columns:auto 1fr;gap:.4em .6em;align-items:center}html.lp .tpc>.act{grid-column:1/-1;width:100%;text-align:center;min-height:0;padding:.35em .2em;font-size:1em}html.lp .tpc .ico{width:2.4em}html.lp .upg{grid-template-columns:1fr!important}
+html.lp .tpc{display:grid;grid-template-columns:auto 1fr;gap:.4em .6em;align-items:center}html.lp .tpc>.act{grid-column:1/-1;width:100%;text-align:center;min-height:0;padding:.35em .2em;font-size:1em}html.lp .upg>div>.btn{margin-top:auto}html.lp .tpc{align-content:space-between}.crw .lz>.lb{left:auto;right:0;transform:translateY(-50%)}.crw .lb,.crbot .lb{text-decoration:underline}
+.tpc .ico{width:2.4em}html.lp .upg{grid-template-columns:1fr!important}
 
 @media (orientation:landscape){html.ll.sm .wrap{--sw:min(100vw,calc(100vh*1.6));font-size:clamp(10px,calc(var(--sw)*.0144),44px)}}
 @supports (height:100dvh){@media (orientation:landscape){html.ll.sm .wrap{--sw:min(100vw,calc(100dvh*1.6))}}}
@@ -2165,7 +2166,7 @@ function App() {
           "div",
           { key: u.id, id: "up-" + u.id, style: { display: "flex", flexDirection: "column", gap: ".4em", padding: ".5em", border: "3px solid #8a4f24", background: "#3a1c10" } },
           h("span", null, u.n + " — " + u.d + (lock ? "  (Lv" + u.lv + (u.req ? " / 需先購前置" : "") + ")" : "")),
-          h("button", { className: own ? "btn bought" : "btn", disabled: own || lock || s.mr < u.cost, onClick: () => buy(u.id) }, own ? "已購買" : "¥" + u.cost)
+          h("button", { className: own ? "btn bought" : "btn", style: { marginTop: "auto" }, disabled: own || lock || s.mr < u.cost, onClick: () => buy(u.id) }, own ? "已購買" : "¥" + u.cost)
         );
       }))
     ))
